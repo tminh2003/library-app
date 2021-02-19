@@ -3,7 +3,7 @@ package minhTo.libraryApp.controller.checkOutBook;
 import org.hibernate.SessionFactory;
 
 import commandLine.Command;
-import minhTo.libraryApp.controller.DatabaseAware;
+import minhTo.libraryApp.DatabaseAware;
 
 public class CheckOutBookCommand extends Command implements DatabaseAware{
 	private SessionFactory sessionFactory;
@@ -13,12 +13,13 @@ public class CheckOutBookCommand extends Command implements DatabaseAware{
 		param = "patron name, book name";
 		desc = "Check out a book with book name and patron name";
 		DefaultOption defaultOption = new DefaultOption();
-		defaultOption.setSessionFactory(sessionFactory);
+		defaultOption.setDatabaseSessionFactory(sessionFactory);
 		optionList.register(defaultOption);
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setDatabaseSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+		
 	}
 
 }

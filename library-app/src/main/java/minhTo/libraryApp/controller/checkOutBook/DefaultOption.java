@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import commandLine.Option;
-import minhTo.libraryApp.controller.DatabaseAware;
+import minhTo.libraryApp.DatabaseAware;
 import minhTo.libraryApp.model.Book;
 import minhTo.libraryApp.model.Loan;
 import minhTo.libraryApp.model.Patron;
@@ -59,7 +59,7 @@ public class DefaultOption extends Option implements DatabaseAware{
 		alias = "default";
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setDatabaseSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 		
 	}
