@@ -2,10 +2,13 @@ package minhTo.libraryApp.controller.addPatron;
 
 import java.util.Scanner;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import commandLine.Option;
 import minhTo.libraryApp.DatabaseAware;
+import minhTo.libraryApp.model.Patron;
 
 public class DefaultOption extends Option implements DatabaseAware{
 	private SessionFactory sessionFactory;
@@ -39,6 +42,19 @@ public class DefaultOption extends Option implements DatabaseAware{
 		
 		System.out.println(patronName);
 		System.out.println(patronEmail);
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Patron patron = new Patron();
+		patron.setName(patronName);
+		patron.setEmailAddress(patronEmail);
+		
+		session.save(patron);
+		
+		transaction.commit();
+		session.close();
+		
 	}
 	
 	public void setDatabaseSessionFactory(SessionFactory sessionFactory) {

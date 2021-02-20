@@ -1,20 +1,33 @@
 package minhTo.libraryApp.model;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Embeddable
+@Entity
+@Table(name = "patron_table")
 public class Patron {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "patron_id")
+	private int id;
+	
+	@Column(name = "patron_name")
 	private String name;
 	
-	@Transient
+	@Column(name = "patron_email")
+	private String emailAddress;
+	
+	@Column(name = "fine_balance")
 	private double fineBalance;
 	
-	@Transient
+	@Column(name = "num_books_out")
 	private int numOfCheckedOutBooks;
 	
-	private Patron() {}
+	public Patron() {}
 	
 	public Patron(String name) {
 		this.name = name;
@@ -31,6 +44,10 @@ public class Patron {
 	public void setNumOfCheckedOutBooks(int numOfCheckedOutBooks) {
 		this.numOfCheckedOutBooks = numOfCheckedOutBooks;
 	}
+	
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
 	public String getName() {
 		return name;
@@ -42,5 +59,9 @@ public class Patron {
 
 	public int getNumOfCheckedOutBooks() {
 		return numOfCheckedOutBooks;
+	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
 	}
 }

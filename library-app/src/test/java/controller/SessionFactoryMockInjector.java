@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import minhTo.libraryApp.model.Loan;
+import minhTo.libraryApp.model.Patron;
 
 public class SessionFactoryMockInjector {
 	
@@ -12,7 +13,7 @@ public class SessionFactoryMockInjector {
 	public static SessionFactory getSessionFactory() {
 		Configuration configuration = new Configuration();
 		configuration.configure();
-		configuration.addAnnotatedClass(Loan.class);
+		configuration.addAnnotatedClass(Patron.class);
 		
 		sessionFactory = configuration.buildSessionFactory();
 		

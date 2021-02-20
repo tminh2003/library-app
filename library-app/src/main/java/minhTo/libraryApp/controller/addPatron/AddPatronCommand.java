@@ -15,7 +15,7 @@ public class AddPatronCommand extends Command implements DatabaseAware{
 		desc = "add patron [patron_name] into the system";
 		DefaultOption option = new DefaultOption();
 		option.setDatabaseSessionFactory(sessionFactory);
-		optionList.register(new DefaultOption());
+		optionList.register(option);
 	}
 	
 	public void setDatabaseSessionFactory(SessionFactory sessionFactory) {

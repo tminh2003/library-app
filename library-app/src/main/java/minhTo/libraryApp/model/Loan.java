@@ -4,6 +4,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,7 +12,8 @@ import javax.persistence.Table;
 @Table(name = "loan_table")
 public class Loan {
 
-	@Id
+	@Id @GeneratedValue
+	@Column(name = "loan_id")
 	private int id;
 
 	@Embedded
