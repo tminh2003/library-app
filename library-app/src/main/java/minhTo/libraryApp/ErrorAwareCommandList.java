@@ -16,16 +16,6 @@ public class ErrorAwareCommandList extends CommandList{
 	}
 	
 	@Override
-	public void register(Command command) {
-		command.initInfo();
-		//Check dulicate
-		if(!allCommandAliases.contains(command.getAlias())) {
-			allCommandAliases.add(command.getAlias());
-		}
-		super.register(command);
-	}
-	
-	@Override
 	public void execute(String query) {
 		query += " ";
 		
