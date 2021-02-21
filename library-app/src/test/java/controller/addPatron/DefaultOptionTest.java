@@ -24,7 +24,5 @@ public class DefaultOptionTest {
 		commandList.execute("ap Jack Frost, jackfrost@gmail.com");
 	}
 	
-	@Test
-	public void testDefaultOption_notEnoughParameter
 	
 }	

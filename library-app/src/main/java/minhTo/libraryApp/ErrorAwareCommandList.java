@@ -16,6 +16,12 @@ public class ErrorAwareCommandList extends CommandList{
 	}
 	
 	@Override
+	public void register(Command command) {
+		super.register(command);
+		allCommandAliases.add(command.getAlias());
+	}
+	
+	@Override
 	public void execute(String query) {
 		query += " ";
 		

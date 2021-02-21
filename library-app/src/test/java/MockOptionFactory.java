@@ -7,6 +7,8 @@ public class MockOptionFactory {
 		
 		if(optionName.equalsIgnoreCase("sayHi_default")) {
 			option = new SayHi_Default();
+		}else if(optionName.equalsIgnoreCase("twoParam_default")) {
+			option = new TwoParam_Default();
 		}
 		
 		return option;
@@ -17,6 +19,19 @@ public class MockOptionFactory {
 		@Override
 		public void execute(String arg0) {
 			System.out.println("hi");
+		}
+
+		@Override
+		protected void setInfo() {
+			alias = "default";
+		}
+		
+	}
+	
+	static class TwoParam_Default extends Option{
+
+		@Override
+		public void execute(String arg0) {
 		}
 
 		@Override
