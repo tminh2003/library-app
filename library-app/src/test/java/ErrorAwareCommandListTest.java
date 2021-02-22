@@ -1,3 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -8,19 +12,42 @@ import minhTo.libraryApp.exception.IncorrectNumberOfParamException;
 public class ErrorAwareCommandListTest {
 	private static ErrorAwareCommandList commandList;
 	
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		commandList = new ErrorAwareCommandList();
 	}
 	
-	@Test(expected = NoSuchCommandAddedException.class)
-	public void testExecute_noSuchCommandAdded() {
+	@Test
+	public void testExecute_default() {
+		commandList.register(MockCommandFactory.get("sayHi"));
 		commandList.execute("sayHi");
+		commandList.execute("        sayHi");
 	}
 	
-	@Test(expected = IncorrectNumberOfParamException.class)
+	@Test
+	public void testExecute_noSuchCommandAdded() {
+		Exception exception = assertThrows(NoSuchCommandAddedException.class, () -> {
+			commandList.execute("sayHi");
+		});
+		
+		String expectedMessage = "sayHi";
+		String actualMessage = exception.getMessage();
+		
+		assertTrue(actualMessage.contains(expectedMessage));
+		
+	}
+	
+	@Test
 	public void testExecute_incorrectNumberOfParam() {
 		commandList.register(MockCommandFactory.get("twoParam"));
-		commandList.execute("twoParam one");
+		
+		Exception exception = assertThrows(IncorrectNumberOfParamException.class, () -> {
+			commandList.execute("twoParam one");
+		});
+		
+		String expectedMessage = "command twoParam needs 2 parameters, only 1 provided";
+		String actualMessage = exception.getMessage();
+		
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 }
