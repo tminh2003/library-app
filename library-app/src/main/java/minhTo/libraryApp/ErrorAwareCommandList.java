@@ -1,24 +1,17 @@
 package minhTo.libraryApp;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import commandLine.Command;
 import commandLine.CommandList;
+import minhTo.libraryApp.exception.IncorrectNumberOfParamException;
 import minhTo.libraryApp.exception.NoSuchCommandAddedException;
 
 public class ErrorAwareCommandList extends CommandList{
 	
-	private ArrayList<String> allCommandAliases;
-	
 	public ErrorAwareCommandList() {
 		super();
-		allCommandAliases = new ArrayList<String>();
-	}
-	
-	@Override
-	public void register(Command command) {
-		super.register(command);
-		allCommandAliases.add(command.getAlias());
 	}
 	
 	/**
@@ -34,21 +27,62 @@ public class ErrorAwareCommandList extends CommandList{
 			query = query.substring(1);
 		}
 
-		query += " ";
+		Scanner queryScanner = new Scanner(query);
+		
 		//Add space for when command doesn't need a param: ("[command1]"). 
 		//												vs ("[command2] [param]")
 		//Command 1 has no space behind command name. We add a space so the next statement would
 		//fetch the alias for either commands.
 		
-		String alias = query.substring(0, query.indexOf(" "));
+		String alias = queryScanner.next();
+		Command expectedCommand = getCommand(alias);
 		
-		if(!allCommandAliases.contains(alias)) {
+		if(expectedCommand == null) {
+			queryScanner.close();
 			throw new NoSuchCommandAddedException(alias);
 		}
 		
 		
 		
-		super.execute(query.substring(0, query.length()-1));
+		int expectedNumParam = 0;
+		int actualNumParam = 0;
+		
+		Scanner expectedParamScanner = new Scanner(expectedCommand.getParam());
+		
+		while(expectedParamScanner.hasNext()) {
+			expectedNumParam++;
+			expectedParamScanner.next();
+		}
+		
+		while(queryScanner.hasNext()) {
+			actualNumParam++;
+			queryScanner.next();
+			
+		}
+		
+		if(expectedNumParam != actualNumParam) {
+			queryScanner.close();
+			expectedParamScanner.close();
+			throw new IncorrectNumberOfParamException("command " + expectedCommand.getAlias() 
+													+ " needs " + expectedNumParam + " parameter(s)"
+													+ ". "  + actualNumParam + " provided instead.");
+		}
+		
+		queryScanner.close();
+		expectedParamScanner.close();
+		
+		
+		super.execute(query.substring(0, query.length()));
+	}
+	
+	public Command getCommand(String alias) {
+		for(Command command : allCommands) {
+			if(alias.equals(command.getAlias())) {
+				return command;
+			}
+		}
+		
+		return null;
 	}
 	
 }

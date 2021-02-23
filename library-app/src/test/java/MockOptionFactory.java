@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import commandLine.Option;
 
 public class MockOptionFactory {
@@ -32,6 +34,9 @@ public class MockOptionFactory {
 
 		@Override
 		public void execute(String arg0) {
+			Scanner scanner = new Scanner(arg0);
+			scanner.useDelimiter(",");
+			System.out.println(scanner.next() + " " + scanner.next());
 		}
 
 		@Override

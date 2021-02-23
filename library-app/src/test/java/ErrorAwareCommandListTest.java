@@ -20,6 +20,8 @@ public class ErrorAwareCommandListTest {
 	@Test
 	public void testExecute_default() {
 		commandList.register(MockCommandFactory.get("sayHi"));
+		commandList.register(MockCommandFactory.get("twoParam"));
+		commandList.execute("twoParam one,two");
 		commandList.execute("sayHi");
 		commandList.execute("        sayHi");
 	}
@@ -40,13 +42,17 @@ public class ErrorAwareCommandListTest {
 	@Test
 	public void testExecute_incorrectNumberOfParam() {
 		commandList.register(MockCommandFactory.get("twoParam"));
+		commandList.register(MockCommandFactory.get("oneParam"));
 		
 		Exception exception = assertThrows(IncorrectNumberOfParamException.class, () -> {
 			commandList.execute("twoParam one");
+			commandList.execute("oneParam one,two");
 		});
 		
-		String expectedMessage = "command twoParam needs 2 parameters, only 1 provided";
+		String expectedMessage = "command twoParam needs 2 parameter(s). 1 provided instead.";
 		String actualMessage = exception.getMessage();
+		
+		System.out.println(actualMessage);
 		
 		assertTrue(actualMessage.contains(expectedMessage));
 	}

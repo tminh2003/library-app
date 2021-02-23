@@ -15,7 +15,7 @@ public class LibraryApp {
 		
 		CommandList commandList = new ErrorAwareCommandList();
 		CheckOutBookCommand checkOutBook = new CheckOutBookCommand();
-		checkOutBook.setSessionFactory(sessionFactory);
+		checkOutBook.setDatabaseSessionFactory(sessionFactory);
 		
 		
 		commandList.register(checkOutBook);
@@ -27,11 +27,7 @@ public class LibraryApp {
 		String input = scanner.nextLine();
 		
 		while(!input.equals("exit")) {
-			try {
-				commandList.execute(input);
-			}catch(NoSuchCommandAddedException exception) {
-				System.out.println("No such command");
-			}
+			commandList.execute(input);
 			input = scanner.nextLine();
 		}
 		
