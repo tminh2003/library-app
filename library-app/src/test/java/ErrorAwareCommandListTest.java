@@ -21,7 +21,7 @@ public class ErrorAwareCommandListTest {
 	public void testExecute_default() {
 		commandList.register(MockCommandFactory.get("sayHi"));
 		commandList.register(MockCommandFactory.get("twoParam"));
-		commandList.execute("twoParam one,two");
+		commandList.execute("twoParam one,  two");
 		commandList.execute("sayHi");
 		commandList.execute("        sayHi");
 	}

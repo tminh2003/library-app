@@ -9,6 +9,10 @@ public class MockCommandFactory {
 			command = new SayHiCommand();
 		}else if(commandName.equalsIgnoreCase("twoParam")) {
 			command = new TwoParamCommand();
+		}else if(commandName.equalsIgnoreCase("oneParam")){
+			command = new OneParamCommand();
+		}else {
+			System.out.println("No such command to create: " + commandName);
 		}
 		return command;
 	}
@@ -21,6 +25,19 @@ public class MockCommandFactory {
 			param = "";
 			desc = "";
 			optionList.register(MockOptionFactory.get("sayHi_default"));
+			
+		}
+		
+	}
+	
+	static class OneParamCommand extends Command{
+
+		@Override
+		protected void setInfo() {
+			alias = "oneParam";
+			param = "one";
+			desc = "";
+			optionList.register(MockOptionFactory.get("twoParam_default"));
 			
 		}
 		

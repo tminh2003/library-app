@@ -1,6 +1,5 @@
 package minhTo.libraryApp;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import commandLine.Command;
@@ -48,12 +47,14 @@ public class ErrorAwareCommandList extends CommandList{
 		int actualNumParam = 0;
 		
 		Scanner expectedParamScanner = new Scanner(expectedCommand.getParam());
+		expectedParamScanner.useDelimiter(",");
 		
 		while(expectedParamScanner.hasNext()) {
 			expectedNumParam++;
 			expectedParamScanner.next();
 		}
 		
+		queryScanner.useDelimiter(",");
 		while(queryScanner.hasNext()) {
 			actualNumParam++;
 			queryScanner.next();
