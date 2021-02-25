@@ -34,6 +34,7 @@ public class MockOptionFactory {
 
 		@Override
 		public void execute(String arg0) {
+			System.out.println(arg0);
 			Scanner scanner = new Scanner(arg0);
 			scanner.useDelimiter(",");
 			System.out.println(scanner.next() + " " + scanner.next());

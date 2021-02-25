@@ -54,12 +54,15 @@ public class ErrorAwareCommandList extends CommandList{
 			expectedParamScanner.next();
 		}
 		
+		String trimmedParam = "";
 		queryScanner.useDelimiter(",");
 		while(queryScanner.hasNext()) {
 			actualNumParam++;
-			queryScanner.next();
-			
+			trimmedParam += queryScanner.next().trim() + ",";
 		}
+		
+		if(trimmedParam.length() > 0 && trimmedParam.charAt(trimmedParam.length() - 1) == ',')
+			trimmedParam = trimmedParam.substring(0, trimmedParam.length() - 1);
 		
 		if(expectedNumParam != actualNumParam) {
 			queryScanner.close();
@@ -73,7 +76,7 @@ public class ErrorAwareCommandList extends CommandList{
 		expectedParamScanner.close();
 		
 		
-		super.execute(query.substring(0, query.length()));
+		super.execute(alias + " " + trimmedParam);
 	}
 	
 	public Command getCommand(String alias) {
