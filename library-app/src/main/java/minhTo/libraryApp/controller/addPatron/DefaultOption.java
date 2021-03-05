@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import commandLine.Option;
 import minhTo.libraryApp.DatabaseAware;
@@ -50,8 +51,12 @@ public class DefaultOption extends Option implements DatabaseAware{
 		patron.setName(patronName);
 		patron.setEmailAddress(patronEmail);
 		
-		session.save(patron);
-		
+		try {
+			session.save(patron);
+		}catch(ConstraintViolationException exception) {
+			System.out.println("This email account is already linked to another patron: " + patronEmail);
+		}
+			
 		transaction.commit();
 		session.close();
 		

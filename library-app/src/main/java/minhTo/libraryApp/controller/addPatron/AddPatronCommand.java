@@ -11,8 +11,8 @@ public class AddPatronCommand extends Command implements DatabaseAware{
 	@Override
 	protected void setInfo() {
 		alias = "ap";
-		param = "patron name";
-		desc = "add patron [patron_name] into the system";
+		param = "patron name, email address";
+		desc = "add patron [patron_name] with [email address] into the system";
 		DefaultOption option = new DefaultOption();
 		option.setDatabaseSessionFactory(sessionFactory);
 		optionList.register(option);
