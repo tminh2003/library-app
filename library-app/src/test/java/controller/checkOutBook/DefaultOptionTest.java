@@ -3,8 +3,8 @@ package controller.checkOutBook;
 import org.junit.Test;
 
 import commandLine.CommandList;
-import controller.SessionFactoryMockInjector;
 import minhTo.libraryApp.controller.checkOutBook.CheckOutBookCommand;
+import testUtil.SessionFactoryMockInjector;
 
 public class DefaultOptionTest {
 	

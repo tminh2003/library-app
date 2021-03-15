@@ -3,9 +3,9 @@ package controller.checkInBook;
 import org.junit.Test;
 
 import commandLine.CommandList;
-import controller.SessionFactoryMockInjector;
 import minhTo.libraryApp.controller.checkInBook.CheckInBookCommand;
 import minhTo.libraryApp.controller.checkOutBook.CheckOutBookCommand;
+import testUtil.SessionFactoryMockInjector;
 
 public class DefaultOptionTest {
 

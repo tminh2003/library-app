@@ -1,12 +1,14 @@
+package commandLineAddOn;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import minhTo.libraryApp.ErrorAwareCommandList;
 import minhTo.libraryApp.exception.NoSuchCommandAddedException;
+import testUtil.MockCommandFactory;
 import minhTo.libraryApp.exception.IncorrectNumberOfParamException;
 
 public class ErrorAwareCommandListTest {

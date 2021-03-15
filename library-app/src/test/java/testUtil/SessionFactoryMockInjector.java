@@ -1,9 +1,9 @@
-package controller;
+package testUtil;
+
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import minhTo.libraryApp.model.Loan;
 import minhTo.libraryApp.model.Patron;
 
 public class SessionFactoryMockInjector {

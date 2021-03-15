@@ -1,3 +1,4 @@
+package testUtil;
 import commandLine.Command;
 
 public class MockCommandFactory {

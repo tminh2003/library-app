@@ -4,9 +4,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import commandLine.CommandList;
-import controller.SessionFactoryMockInjector;
 import minhTo.libraryApp.ErrorAwareCommandList;
 import minhTo.libraryApp.controller.addPatron.AddPatronCommand;
+import testUtil.SessionFactoryMockInjector;
 
 public class DefaultOptionTest {
 	private static CommandList commandList;

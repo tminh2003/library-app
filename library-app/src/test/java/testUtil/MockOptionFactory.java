@@ -1,3 +1,4 @@
+package testUtil;
 import java.util.Scanner;
 
 import commandLine.Option;
