@@ -1,27 +1,28 @@
-package minhTo.libraryApp.controller.addPatron;
+package minhTo.libraryApp.controller.addBook;
 
 import org.hibernate.SessionFactory;
 
 import commandLine.Command;
 import minhTo.commandLineAddOn.DatabaseAware;
 
-public class AddPatronCommand extends Command implements DatabaseAware{
+public class AddBookCommand extends Command implements DatabaseAware{
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	protected void setInfo() {
-		alias = "ap";
-		param = "patron name, email address";
-		desc = "add patron [patron_name] with [email address] into the system";
+		alias = "ab";
+		param = "title, book name, isbn, cost";
+		desc = "add book with the provided info into the database";
 		DefaultOption option = new DefaultOption();
 		option.setDatabaseSessionFactory(sessionFactory);
 		optionList.register(option);
 	}
 	
+	@Override
 	public void setDatabaseSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+		
 	}
 
-	
 
 }

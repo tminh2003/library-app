@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import commandLine.Option;
-import minhTo.libraryApp.DatabaseAware;
+import minhTo.commandLineAddOn.DatabaseAware;
 import minhTo.libraryApp.model.Patron;
 
 public class DefaultOption extends Option implements DatabaseAware{

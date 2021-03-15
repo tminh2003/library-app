@@ -1,4 +1,4 @@
-package minhTo.libraryApp;
+package minhTo.commandLineAddOn;
 
 import java.util.Scanner;
 

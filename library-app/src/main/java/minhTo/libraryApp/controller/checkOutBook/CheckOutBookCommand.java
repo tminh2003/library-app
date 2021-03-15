@@ -3,7 +3,7 @@ package minhTo.libraryApp.controller.checkOutBook;
 import org.hibernate.SessionFactory;
 
 import commandLine.Command;
-import minhTo.libraryApp.DatabaseAware;
+import minhTo.commandLineAddOn.DatabaseAware;
 
 public class CheckOutBookCommand extends Command implements DatabaseAware{
 	private SessionFactory sessionFactory;

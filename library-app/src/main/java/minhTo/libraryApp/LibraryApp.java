@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.hibernate.SessionFactory;
 
 import commandLine.CommandList;
+import minhTo.commandLineAddOn.ErrorAwareCommandList;
 import minhTo.libraryApp.controller.checkOutBook.CheckOutBookCommand;
 import minhTo.libraryApp.exception.NoSuchCommandAddedException;
 

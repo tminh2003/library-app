@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import commandLine.Option;
-import minhTo.libraryApp.DatabaseAware;
+import minhTo.commandLineAddOn.DatabaseAware;
 import minhTo.libraryApp.model.Book;
 import minhTo.libraryApp.model.Loan;
 import minhTo.libraryApp.model.Patron;

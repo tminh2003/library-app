@@ -1,4 +1,4 @@
-package minhTo.libraryApp;
+package minhTo.commandLineAddOn;
 
 public class DatabaseAwareCommandList extends ErrorAwareCommandList{
 	

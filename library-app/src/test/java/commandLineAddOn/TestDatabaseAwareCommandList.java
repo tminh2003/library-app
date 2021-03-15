@@ -1,7 +1,8 @@
 package commandLineAddOn;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import minhTo.libraryApp.DatabaseAwareCommandList;;
+
+import minhTo.commandLineAddOn.DatabaseAwareCommandList;
 
 public class TestDatabaseAwareCommandList {
 	private DatabaseAwareCommandList commandList;

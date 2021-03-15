@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import commandLine.CommandList;
-import minhTo.libraryApp.ErrorAwareCommandList;
+import minhTo.commandLineAddOn.ErrorAwareCommandList;
 import minhTo.libraryApp.controller.addPatron.AddPatronCommand;
 import testUtil.SessionFactoryMockInjector;
 
