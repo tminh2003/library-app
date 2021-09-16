@@ -1,0 +1,4 @@
+com\myapps\library_app_shared\model\User.class
+com\myapps\library_app_shared\model\Book.class
+com\myapps\library_app_shared\model\Loan.class
+com\myapps\library_app_shared\model\Book$BookStatus.class
