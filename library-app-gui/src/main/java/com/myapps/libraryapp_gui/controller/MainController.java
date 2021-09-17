@@ -49,18 +49,6 @@ public class MainController {
 		return "signup";
 	}
 	
-	@RequestMapping("/login")
-	public String login(@RequestParam(value = "error", required = false) String error,
-						Model model) {
-        model.addAttribute("error", error);
-		return "login";
-	}
-	
-	@RequestMapping("/perform_login")
-	public String loginDetail() {
-		return "index";
-	}
-	
 	@RequestMapping("/books")
 	public String books(@CookieValue(value = "username", defaultValue = "")String username, Model model) {
 		RestTemplate restTemplate = new RestTemplate();

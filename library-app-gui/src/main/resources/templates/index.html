@@ -9,7 +9,7 @@
 	<ul>
 		<li><a href="http://localhost:8080">Home</a></li>
 		<li><a href="http://localhost:8080/books">Books</a></li>
-		<li><a th:text = "${username} == '' ? 'not signed in' : 'signed in'"></a></li>
+		<li><a th:text = "${username} == '' ? 'not signed in' : ${username}"></a></li>
 		<li><a href="http://localhost:8080/login">Login</a></li>
 	</ul>
 </body>
