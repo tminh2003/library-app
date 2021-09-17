@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myapps.libraryapp_db.model.User;
+import com.myapps.library_app_shared.model.User;
 import com.myapps.libraryapp_db.model.UserRepository;
 
 @RestController
@@ -24,8 +24,8 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping("/users/{id}")
-	public User one(@PathVariable Long id) {
-		return userRepository.findById(id).get();
+	@GetMapping("/users/{username}")
+	public User one(@PathVariable String username) {
+		return userRepository.findByName(username);
 	}
 }

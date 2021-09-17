@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myapps.libraryapp_db.model.Book;
+import com.myapps.library_app_shared.model.Book;
 import com.myapps.libraryapp_db.model.BookRepository;
 
 @RestController

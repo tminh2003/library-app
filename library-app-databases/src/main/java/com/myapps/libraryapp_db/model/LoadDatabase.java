@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.myapps.library_app_shared.model.Book;
+import com.myapps.library_app_shared.model.User;
+
 @Configuration
 class LoadDatabase {
 
@@ -25,8 +28,8 @@ class LoadDatabase {
 	CommandLineRunner initUserDatabase(UserRepository repository) {
 
 		return args -> {
-			log.info("Preloading " + repository.save(new User("jack frost", "jackfrost@gmail.com", "", "USER")));
-			log.info("Preloading " + repository.save(new User("santa claus", "santa claus@gmail.com", "", "ADMIN")));
+			log.info("Preloading " + repository.save(new User("jack_frost", "jackfrost@gmail.com", "$2a$10$D2SYPjENGV.uhdp0xqAybOj2aDsohzJSfExzeXSLG9afly.ODfDtK", "USER")));
+			log.info("Preloading " + repository.save(new User("santa_claus", "santaclaus@gmail.com", "$2a$10$D2SYPjENGV.uhdp0xqAybOj2aDsohzJSfExzeXSLG9afly.ODfDtK", "ADMIN")));
 		};
 	}
 }

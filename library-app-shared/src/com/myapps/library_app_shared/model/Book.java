@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_db.model;
+package com.myapps.library_app_shared.model;
 
 import java.util.Objects;
 
@@ -7,17 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Book {
-	private enum BookStatus{
-		IN, OUT, REPAIR, LOST
-	}
+public class Book{
 
 	private @Id @GeneratedValue Long id;
 	private String title;
 	private String author;
 	private String isbn;
 	private double cost;
-	private BookStatus currentStatus;
+	private String currentStatus;
 	
 	private Book() {}
 	
@@ -26,7 +23,7 @@ public class Book {
 		this.author = author;
 		this.isbn = isbn;
 		this.cost = cost;
-		this.currentStatus = BookStatus.IN;
+		this.currentStatus = "IN";
 	}
 	
 	public void setId(Long id) {
@@ -49,7 +46,7 @@ public class Book {
 		this.cost = cost;
 	}
 
-	public void setCurrentStatus(BookStatus currentStatus) {
+	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
 
@@ -73,7 +70,7 @@ public class Book {
 		return cost;
 	}
 
-	public BookStatus getCurrentStatus() {
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 	
