@@ -10,10 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
@@ -51,6 +49,8 @@ public class MainController {
 	
 	@RequestMapping("/books")
 	public String books(@CookieValue(value = "username", defaultValue = "")String username, Model model) {
+		model.addAttribute("username", username);
+		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Object[]> obj= restTemplate.getForEntity(
 				"http://localhost:8081/books", Object[].class);
@@ -58,8 +58,13 @@ public class MainController {
 		return "allBooks";
 	}
 	
-	@GetMapping("/books/{id}")
-	public String oneBook(@PathVariable Long id, Model model) {
+	@RequestMapping("/books/{id}")
+	public String oneBook(@PathVariable Long id, 
+						@CookieValue(value = "username", defaultValue = "") String username, 
+						Model model) {
+		model.addAttribute("username", username);
+		
+		
 		RestTemplate restTemplate = new RestTemplate();
 		Object obj= restTemplate.getForObject(
 				"http://localhost:8081/books/" + id, Object.class);

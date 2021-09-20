@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+<link th:href="@{/style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -9,7 +10,7 @@
 		<li><a href="/">Home</a></li>
 		<li><a href="/books">Books</a></li>
 		<li><a th:text = "${username} == '' ? 'Log in' : ${username}"
-				th:href="${username} == '' ? '/login' : '/userProfile'"></a></li>
+				th:href= "login"></a></li>
 	</ul>
 </body>
 
