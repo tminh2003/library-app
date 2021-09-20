@@ -13,7 +13,7 @@ public class LoginController {
 	public String login(@RequestParam(value = "error", required = false) String loginError,
 						@CookieValue(value = "username", defaultValue = "") String username,
 						Model model) {
-		if(username != null)
+		if(!username.equals(""))
 			return "redirect:";
 		
         model.addAttribute("error", loginError);
