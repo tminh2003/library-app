@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<link href="style.css" rel="stylesheet">
+<link th:href="@{/style.css}" rel="stylesheet">
 </head>
 
 <body>
-	<ul>
-		<li><a href="http://localhost:8080">Home</a></li>
-		<li><a href="http://localhost:8080/books">Books</a></li>
-		<li><a th:text = "${username} == '' ? 'not signed in' : 'signed in'"></a></li>
-		<li><a href="http://localhost:8080/login">Login</a></li>
-	</ul>
-	<p th:text="${book}"></p>
+	<div th:replace = "parts::navBar"></div>
+	<div>
+		<p th:text="${book}"></p>
+	</div>
+	
 </body>
 
 </html>
