@@ -64,7 +64,6 @@ public class MainController {
 						Model model) {
 		model.addAttribute("username", username);
 		
-		
 		RestTemplate restTemplate = new RestTemplate();
 		Object obj= restTemplate.getForObject(
 				"http://localhost:8081/books/" + id, Object.class);
