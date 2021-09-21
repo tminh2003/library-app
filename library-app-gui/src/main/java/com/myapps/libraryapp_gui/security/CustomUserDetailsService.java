@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_gui;
+package com.myapps.libraryapp_gui.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
