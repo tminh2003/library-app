@@ -11,12 +11,17 @@ public class UserProfileController {
 	@RequestMapping("/userProfile")
 	public String userProfile(@CookieValue(value = "username", defaultValue = "") String username,
 								Model model) {
-		model.addAttribute("username", username);
+		
+		if(username.equals("")) {
+			return "redirect:/login";
+		}
 		
 		RestTemplate restTemplate = new RestTemplate();
 		Object user= restTemplate.getForObject(
 				"http://localhost:8081/users/" + username, Object.class);
+		
 		model.addAttribute("user", user);
+		model.addAttribute("username", username);
 		return "userProfile";
 	}
 }
