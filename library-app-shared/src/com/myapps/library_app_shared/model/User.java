@@ -35,9 +35,6 @@ public class User{
 		this.fineBalance = fineBalance;
 	}
 
-	public void setNumOfCheckedOutUsers(int numCheckedOutBooks) {
-		this.numCheckedOutBooks = numCheckedOutBooks;
-	}
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
@@ -57,10 +54,6 @@ public class User{
 
 	public double getFineBalance() {
 		return fineBalance;
-	}
-
-	public int getNumOfCheckedOutUsers() {
-		return numCheckedOutBooks;
 	}
 
 	public String getAuthority() {

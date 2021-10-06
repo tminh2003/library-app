@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myapps.library_app_shared.model.User;
@@ -24,8 +26,15 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
+	@PostMapping("/users")
+	public void createUser(	@RequestBody User user) {
+		userRepository.save(user);
+	}
+	
 	@GetMapping("/users/{username}")
 	public User one(@PathVariable String username) {
 		return userRepository.findByName(username);
 	}
+	
+	
 }

@@ -2,20 +2,23 @@
 <html>
 <head></head>
 <body>
-	<form>
+	<form action="/signupProcessing">
 		<div>
 			<h1>Sign Up</h1>
 			<p>Please fill in this form to create an account.</p>
 			<hr>
+			
+			<b>Username</b> 
+			<input th:field="*{user.username}" placeholder="Enter Username" required> 
 
 			<b>Email</b> 
-			<input type="text" placeholder="Enter Email" required> 
+			<input th:field="*{user.email}" placeholder="Enter Email" required> 
 			
 			<b>Password</b> 
-			<input type="password" placeholder="Enter Password" required> 
+			<input th:field="*{user.password}" placeholder="Enter Password" required> 
 			
 			<b>Repeat Password</b> 
-			<input type="password" placeholder="Repeat Password" required>
+			<input th:field="*{user.matchingPassword}" placeholder="Repeat Password" required>
 			
 			<div>
 				<button type="button">Cancel</button>

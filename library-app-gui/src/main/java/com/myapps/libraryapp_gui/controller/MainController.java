@@ -42,11 +42,6 @@ public class MainController {
 		return "test";
 	}
 	
-	@RequestMapping("/signup")
-	public String signup() {
-		return "signup";
-	}
-	
 	@RequestMapping("/books")
 	public String books(@CookieValue(value = "username", defaultValue = "")String username, Model model) {
 		model.addAttribute("username", username);
