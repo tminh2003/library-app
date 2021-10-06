@@ -3,6 +3,7 @@ package com.myapps.libraryapp_gui;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 public class UserDTO {
 	@NotNull
     @NotEmpty

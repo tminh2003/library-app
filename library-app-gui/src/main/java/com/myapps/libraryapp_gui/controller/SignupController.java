@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,7 +28,13 @@ public class SignupController {
 	
 	@RequestMapping("/signupProcessing")
 	public String signupProcessing(	@ModelAttribute("user") @Valid UserDTO userDTO,
-									Error error) {
+									Errors errors) {
+		if(errors.getGlobalError() != null) {
+			return "redirect:signup?error=passwordMismatch";
+		}if(errors.getFieldError("email") != null) {
+			return "redirect:signup?error=invalidEmail";
+		}
+		
 		try {
 			userService.addUser(userDTO);
 		}catch(UsernameAlreadyExistsException ex) {
