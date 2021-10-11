@@ -7,7 +7,7 @@ import com.myapps.libraryapp_gui.validation.PasswordMatches;
 import com.myapps.libraryapp_gui.validation.ValidEmail;
 
 @PasswordMatches
-public class UserDTO {
+public class UserValidationDetails {
 	@NotNull
     @NotEmpty
     private String username;

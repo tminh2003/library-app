@@ -21,7 +21,7 @@ public class UserService{
 	
 	public void addUser(String username, String email, String encryptedPassword, String authority) throws UsernameAlreadyExistsException {
 		try {
-			getUserByUsername(username); //if username not used we could add user
+			getUserByUsername(username); //will throw exception if username not found
 			throw new UsernameAlreadyExistsException();
 		}catch(UsernameNotFoundException exception) {
 			RestTemplate restTemplate = new RestTemplate();

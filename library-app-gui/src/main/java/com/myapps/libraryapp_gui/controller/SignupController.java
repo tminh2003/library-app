@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myapps.libraryapp_gui.exception.UsernameAlreadyExistsException;
-import com.myapps.libraryapp_gui.model.UserDTO;
+import com.myapps.libraryapp_gui.model.UserValidationDetails;
 import com.myapps.libraryapp_gui.service.UserService;
 
 @Controller
 public class SignupController {
 	@Autowired
-	UserService userService; 
+	private UserService userService; 
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/signup")
 	public String signup(Model model) {
-		UserDTO user = new UserDTO();
+		UserValidationDetails user = new UserValidationDetails();
 		
 		model.addAttribute("user", user);
 		return "signup";
 	}
 	
 	@RequestMapping("/signupProcessing")
-	public String signupProcessing(	@ModelAttribute("user") @Valid UserDTO userDTO,
+	public String signupProcessing(	@ModelAttribute("user") @Valid UserValidationDetails user,
 									Errors errors) {
 		if(errors.getGlobalError() != null) {
 			return "redirect:signup?error=passwordMismatch";
@@ -40,9 +40,9 @@ public class SignupController {
 		}
 		
 		try {
-			userService.addUser(userDTO.getUsername(),
-								userDTO.getEmail(),
-								passwordEncoder.encode(userDTO.getPassword()),
+			userService.addUser(user.getUsername(),
+								user.getEmail(),
+								passwordEncoder.encode(user.getPassword()),
 								"USER");
 		}catch(UsernameAlreadyExistsException ex) {
 			return "redirect:signup?error=usernameAlreadyExists";
