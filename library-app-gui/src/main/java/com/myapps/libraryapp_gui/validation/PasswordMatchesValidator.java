@@ -1,7 +1,9 @@
-package com.myapps.libraryapp_gui;
+package com.myapps.libraryapp_gui.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import com.myapps.libraryapp_gui.model.UserDTO;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 

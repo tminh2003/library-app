@@ -1,7 +1,10 @@
-package com.myapps.libraryapp_gui;
+package com.myapps.libraryapp_gui.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.myapps.libraryapp_gui.validation.PasswordMatches;
+import com.myapps.libraryapp_gui.validation.ValidEmail;
 
 @PasswordMatches
 public class UserDTO {

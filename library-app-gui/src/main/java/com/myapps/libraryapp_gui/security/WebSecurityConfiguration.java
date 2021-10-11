@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
-	SuccessHandler loginSuccessHandler;
+	LoginSuccessHandler loginSuccessHandler;
 	
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {

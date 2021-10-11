@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_gui.security;
+package com.myapps.libraryapp_gui.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,12 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetails implements UserDetails {
+public class UserSecurityDetails implements UserDetails {
 	private String username;
 	private String password;
 	private ArrayList<SimpleGrantedAuthority> authorities;
 
-	public CustomUserDetails(String username, String password, String... authorities) {
+	public UserSecurityDetails(String username, String password, String... authorities) {
 		this.username = username;
 		this.password = password;
 		this.authorities = new ArrayList<SimpleGrantedAuthority>();

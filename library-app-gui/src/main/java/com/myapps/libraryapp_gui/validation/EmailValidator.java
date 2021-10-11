@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_gui;
+package com.myapps.libraryapp_gui.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

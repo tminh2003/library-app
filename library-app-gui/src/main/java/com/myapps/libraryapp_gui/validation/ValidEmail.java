@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_gui;
+package com.myapps.libraryapp_gui.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

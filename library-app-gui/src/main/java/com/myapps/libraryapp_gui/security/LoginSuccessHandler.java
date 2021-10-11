@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 @Component
-public class SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	@Override
     public void onAuthenticationSuccess(HttpServletRequest request, 
     									HttpServletResponse response,
