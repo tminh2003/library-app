@@ -2,31 +2,33 @@ package com.myapps.libraryapp_db.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myapps.library_app_shared.model.Book;
-import com.myapps.libraryapp_db.model.BookRepository;
+import com.myapps.library_app_shared.model.BookDTO;
+import com.myapps.libraryapp_db.repository.BookRepository;
+import com.myapps.libraryapp_db.util.BookDTOMapper;
 
 @RestController
 public class BookController {
-	private final BookRepository bookRepository;
+	@Autowired
+	private BookRepository bookRepository;
 
-	public BookController(BookRepository bookRepository) {
-		this.bookRepository = bookRepository;
-	}
-
+	@Autowired
+	private BookDTOMapper dtoMapper;
+	
 	@GetMapping("/books")
 	@Transactional(timeout = 4000)
-	public List<Book> getAll() {
-		return bookRepository.findAll();
+	public List<BookDTO> getAll() {
+		return dtoMapper.toDTO(bookRepository.findAll());
 	}
 
 	@GetMapping("/books/{id}")
-	public Book one(@PathVariable Long id) {
+	public BookDTO one(@PathVariable Long id) {
 
-		return bookRepository.findById(id).get();
+		return dtoMapper.toDTO(bookRepository.findById(id).get());
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@EntityScan("com.myapps.library_app_shared.model")
 public class LibraryAppDatabasesApplication {
 
 	public static void main(String[] args) {

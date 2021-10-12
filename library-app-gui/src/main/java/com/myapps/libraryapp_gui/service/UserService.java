@@ -3,16 +3,16 @@ package com.myapps.libraryapp_gui.service;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.client.RestTemplate;
 
-import com.myapps.library_app_shared.model.User;
+import com.myapps.library_app_shared.model.UserDTO;
 import com.myapps.libraryapp_gui.exception.UsernameAlreadyExistsException;
 ;
 
 public class UserService{
 	
-	public User getUserByUsername(String username) throws UsernameNotFoundException{
+	public UserDTO getUserByUsername(String username) throws UsernameNotFoundException{
 		RestTemplate restTemplate = new RestTemplate();
-		User user = restTemplate.getForEntity(
-				"http://localhost:8081/users/" + username, User.class).getBody();
+		UserDTO user = restTemplate.getForEntity(
+				"http://localhost:8081/users/" + username, UserDTO.class).getBody();
 		
 		if(user == null) throw new UsernameNotFoundException(username);
 		
@@ -25,11 +25,11 @@ public class UserService{
 			throw new UsernameAlreadyExistsException();
 		}catch(UsernameNotFoundException exception) {
 			RestTemplate restTemplate = new RestTemplate();
-			User user = new User(	username, 
+			UserDTO user = new UserDTO(	username, 
 									email, 
 									encryptedPassword, 
 									authority);
-			restTemplate.postForObject("http://localhost:8081/users", user, User.class);
+			restTemplate.postForObject("http://localhost:8081/users", user, UserDTO.class);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package com.myapps.libraryapp_db.model;
+package com.myapps.libraryapp_db.repository;
 
 
 import org.slf4j.Logger;
@@ -7,8 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.myapps.library_app_shared.model.Book;
-import com.myapps.library_app_shared.model.User;
+import com.myapps.libraryapp_db.model.Book;
+import com.myapps.libraryapp_db.model.User;
 
 @Configuration
 class LoadDatabase {

@@ -1,11 +1,12 @@
-package com.myapps.libraryapp_db.model;
+
+package com.myapps.libraryapp_db.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.myapps.library_app_shared.model.User;
+import com.myapps.libraryapp_db.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findByName(String username);
+	public User findByUsername(String username);
 	
 }
