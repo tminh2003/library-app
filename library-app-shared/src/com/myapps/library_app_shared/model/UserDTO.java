@@ -9,8 +9,6 @@ public class UserDTO{
 	private String email;
 	private String password;
 	private String authority;
-	private double fineBalance;
-	private int numCheckedOutBooks;
 
 	private UserDTO() {
 	}
@@ -20,7 +18,5 @@ public class UserDTO{
 		this.email = email;
 		this.password = password;
 		this.authority = authority;
-		this.fineBalance = 0;
-		this.numCheckedOutBooks = 0;
 	}	
 }

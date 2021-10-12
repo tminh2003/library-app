@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myapps.library_app_shared.model.UserDTO;
+import com.myapps.libraryapp_db.model.User;
 import com.myapps.libraryapp_db.repository.UserRepository;
 import com.myapps.libraryapp_db.util.UserDTOMapper;
 
@@ -35,7 +36,11 @@ public class UserController {
 	
 	@GetMapping("/users/{username}")
 	public UserDTO one(@PathVariable String username) {
-		return dtoMapper.toDTO(userRepository.findByName(username));
+		User user = userRepository.findByUsername(username);
+		
+		if(user == null) return null;
+		
+		return dtoMapper.toDTO(user);
 	}
 	
 	

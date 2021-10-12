@@ -19,9 +19,6 @@ public class SignupController {
 	@Autowired
 	private UserService userService; 
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		UserValidationDetails user = new UserValidationDetails();
@@ -42,7 +39,7 @@ public class SignupController {
 		try {
 			userService.addUser(user.getUsername(),
 								user.getEmail(),
-								passwordEncoder.encode(user.getPassword()),
+								user.getPassword(),
 								"USER");
 		}catch(UsernameAlreadyExistsException ex) {
 			return "redirect:signup?error=usernameAlreadyExists";

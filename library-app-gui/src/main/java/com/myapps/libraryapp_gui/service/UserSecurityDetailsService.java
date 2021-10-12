@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.myapps.library_app_shared.model.UserDTO;
 import com.myapps.libraryapp_gui.model.UserSecurityDetails;
 
-@Component
 public class UserSecurityDetailsService implements UserDetailsService{
 	@Autowired
 	private UserService userService;
