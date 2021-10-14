@@ -41,29 +41,5 @@ public class MainController {
 		model.addAttribute("info", counter);
 		return "test";
 	}
-	
-	@RequestMapping("/books")
-	public String books(@CookieValue(value = "username", defaultValue = "")String username, Model model) {
-		model.addAttribute("username", username);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Object[]> obj= restTemplate.getForEntity(
-				"http://localhost:8081/books", Object[].class);
-		model.addAttribute("allBooks", obj.getBody());
-		return "allBooks";
-	}
-	
-	@RequestMapping("/books/{id}")
-	public String oneBook(@PathVariable Long id, 
-						@CookieValue(value = "username", defaultValue = "") String username, 
-						Model model) {
-		model.addAttribute("username", username);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		Object obj= restTemplate.getForObject(
-				"http://localhost:8081/books/" + id, Object.class);
-		model.addAttribute("book", obj);
-		return "oneBook";
-	}
 
 }

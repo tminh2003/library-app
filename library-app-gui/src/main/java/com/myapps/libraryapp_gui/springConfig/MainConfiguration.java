@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.myapps.libraryapp_gui.security.LoginSuccessHandler;
+import com.myapps.libraryapp_gui.service.BookService;
 import com.myapps.libraryapp_gui.service.UserSecurityDetailsService;
 import com.myapps.libraryapp_gui.service.UserService;
 
@@ -32,6 +33,11 @@ public class MainConfiguration {
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new LoginSuccessHandler();
+	}
+	
+	@Bean
+	public BookService bookService() {
+		return new BookService();
 	}
 	
 }

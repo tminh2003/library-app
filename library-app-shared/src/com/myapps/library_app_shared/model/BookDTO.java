@@ -14,7 +14,8 @@ public class BookDTO{
 	
 	private BookDTO() {}
 	
-	public BookDTO(String title, String author, String isbn, double cost) {
+	public BookDTO(Long id, String title, String author, String isbn, double cost) {
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
