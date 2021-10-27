@@ -2,17 +2,17 @@ package com.myapps.libraryapp_gui.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.RestTemplate;
+
+import com.myapps.libraryapp_gui.service.ActiveUserService;
 
 @Controller
 public class MainController {
@@ -21,9 +21,8 @@ public class MainController {
 	private UserDetailsService userService;
 	
 	@RequestMapping("/")
-	public String index(@CookieValue(value = "username", defaultValue = "") String username, Model model) {
-		model.addAttribute("username", username);
-		
+	public String index(HttpSession session, Model model) {
+		model.addAttribute("username", session.getAttribute("username"));
 		return "index";
 	}
 	

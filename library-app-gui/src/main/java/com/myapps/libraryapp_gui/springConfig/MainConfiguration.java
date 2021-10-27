@@ -6,8 +6,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.myapps.libraryapp_gui.security.LoginSuccessHandler;
+import com.myapps.libraryapp_gui.security.MyLogoutSuccessHandler;
+import com.myapps.libraryapp_gui.service.ActiveUserService;
 import com.myapps.libraryapp_gui.service.BookService;
 import com.myapps.libraryapp_gui.service.UserSecurityDetailsService;
 import com.myapps.libraryapp_gui.service.UserService;
@@ -40,4 +43,13 @@ public class MainConfiguration {
 		return new BookService();
 	}
 	
+	@Bean
+	public ActiveUserService activeUserService() {
+		return new ActiveUserService();
+	}
+	
+	@Bean
+	public LogoutSuccessHandler logoutSuccessHandler() {
+		return new MyLogoutSuccessHandler();
+	}
 }
