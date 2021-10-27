@@ -20,8 +20,8 @@ public class UserProfileController {
 								Model model) {
 		String username = (String) session.getAttribute("username");
 		
-		//Not logged in
-		if(username.equals("")) {
+		//If not logged in
+		if(username == null) {
 			return "redirect:/login";
 		}
 		
