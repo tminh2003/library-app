@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import com.myapps.libraryapp_gui.service.ActiveUserService;
-import com.myapps.libraryapp_gui.session.LoggedUser;
 
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	@Autowired

@@ -17,7 +17,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler{
       throws IOException, ServletException {
         HttpSession session = request.getSession();
         if (session != null){
-            session.removeAttribute("user");
+            session.removeAttribute("username");
         }
     }
 }

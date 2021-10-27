@@ -1,9 +1,10 @@
 package com.myapps.libraryapp_gui.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myapps.library_app_shared.model.UserDTO;
@@ -15,8 +16,9 @@ public class UserProfileController {
 	private UserService userService;
 	
 	@RequestMapping("/userProfile")
-	public String userProfile(@CookieValue(value = "username", defaultValue = "") String username,
+	public String userProfile(	HttpSession session,
 								Model model) {
+		String username = (String) session.getAttribute("username");
 		
 		//Not logged in
 		if(username.equals("")) {
