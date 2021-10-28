@@ -8,6 +8,19 @@
 <body>
 	<div th:replace = "parts::navBar"></div>
 	<div>
+		<ul>
+			<li><a
+				th:text="${bookCheckedOutByThisUser} ? 'Recheck' : 'Check out'"
+				th:href="${loggedIn} ? '/checkOut' : '/login'"></a></li>
+			<li><a
+				th:text="(${bookCheckedOutByThisUser} and ${loggedIn}) ? 'Return' : ''"
+				th:href="'/returnBook'"></a></li>
+			<li><a
+				th:text="(${bookCheckedOutByThisUser} and ${loggedIn}) ? 'Report Lost' : ''"
+				th:href="'/reportLost'"></a></li>
+		</ul>
+	</div>
+	<div>
 		<p th:text="${book}"></p>
 	</div>
 	

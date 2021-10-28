@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 	
 	@RequestMapping("/login")
-	public String login(HttpSession session,
-						@RequestParam(value = "error", required = false) String loginError,
-						Model model) {
+	public String login(	HttpSession session,
+							@RequestParam(value = "error", required = false) String loginError,
+							Model model) {
 		
 		//If already logged in
 		if(!(session.getAttribute("username") == null))

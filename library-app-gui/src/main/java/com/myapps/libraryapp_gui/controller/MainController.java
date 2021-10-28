@@ -17,6 +17,7 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String index(HttpSession session, Model model) {
+		
 		model.addAttribute("username", session.getAttribute("username"));
 		return "index";
 	}

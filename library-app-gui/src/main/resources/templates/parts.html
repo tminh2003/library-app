@@ -6,12 +6,17 @@
 </head>
 
 <body>
-	<ul th:fragment = "navBar">
-		<li><a href="/">Home</a></li>
-		<li><a href="/books">Books</a></li>
-		<li><a th:text = "(${username} == '' or ${username} == null) ? 'Log in' : ${username}"
-				th:href= "(${username} == '' or ${username} == null) ? '/login' : '/userProfile'"></a></li>
-	</ul>
+	<div th:fragment="navBar">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/books">Books</a></li>
+			<li><a
+				th:text="(${username} == '' or ${username} == null) ? 'Log in' : ${username}"
+				th:href="(${username} == '' or ${username} == null) ? '/login' : '/userProfile'"></a></li>
+		</ul>
+		<hr>
+	</div>
+
 </body>
 
 </html>
