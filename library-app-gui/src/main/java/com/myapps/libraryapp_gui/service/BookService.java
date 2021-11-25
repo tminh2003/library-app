@@ -3,7 +3,6 @@ package com.myapps.libraryapp_gui.service;
 import org.springframework.web.client.RestTemplate;
 
 import com.myapps.library_app_shared.model.BookDTO;
-import com.myapps.library_app_shared.model.UserDTO;
 
 public class BookService {
 
@@ -22,15 +21,15 @@ public class BookService {
 		return bookDTO;
 	}
 
-	public void checkOutBookForUser(Long bookId, UserDTO user) {
+	public void checkOutBookForUser(Long bookId, Long userId) {
 		
 	}
 	
-	public void returnBookForUser(Long bookId, UserDTO user) {
+	public void returnBookForUser(Long bookId, Long userId) {
 		
 	}
 	
-	public void reportLostBookForUser(Long bookId, UserDTO user) {
+	public void reportLostBookForUser(Long bookId, Long userId) {
 		
 	}
 	

@@ -53,7 +53,7 @@ public class BookController {
 	
 	@RequestMapping("/returnBook")
 	public String returnBook(	HttpSession session, 
-							Model model) {
+								Model model) {
 		
 		model.addAttribute("username", session.getAttribute("username"));
 		return "oneBook";
@@ -61,7 +61,7 @@ public class BookController {
 	
 	@RequestMapping("/reportLost")
 	public String reportLost(	HttpSession session, 
-							Model model) {
+								Model model) {
 		
 		model.addAttribute("username", session.getAttribute("username"));
 		return "oneBook";
