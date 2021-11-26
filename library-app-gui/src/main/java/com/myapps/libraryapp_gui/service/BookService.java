@@ -1,8 +1,11 @@
 package com.myapps.libraryapp_gui.service;
 
+import java.time.LocalDate;
+
 import org.springframework.web.client.RestTemplate;
 
 import com.myapps.library_app_shared.model.BookDTO;
+import com.myapps.library_app_shared.model.LoanDTO;
 
 public class BookService {
 
@@ -21,15 +24,21 @@ public class BookService {
 		return bookDTO;
 	}
 
-	public void checkOutBookForUser(Long bookId, Long userId) {
+	public void checkOutBookForUser(Long bookId, String username, int howLong) {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		restTemplate.postForObject(	"http://localhost:8081/loans/", 
+									new LoanDTO(	username,
+													bookId,
+													LocalDate.now().plusDays(howLong)),
+									LoanDTO.class);
+	}
+	
+	public void returnBookForUser(Long bookId, String username) {
 		
 	}
 	
-	public void returnBookForUser(Long bookId, Long userId) {
-		
-	}
-	
-	public void reportLostBookForUser(Long bookId, Long userId) {
+	public void reportLostBookForUser(Long bookId, String username) {
 		
 	}
 	

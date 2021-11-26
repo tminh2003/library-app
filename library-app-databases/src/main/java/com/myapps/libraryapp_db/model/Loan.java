@@ -15,14 +15,14 @@ import lombok.Data;
 public class Loan{
 
 	private @Id @GeneratedValue(generator = "my_loan_id_generator") Long id;
-	private Long userId;
+	private String username;
 	private Long bookId;
 	private LocalDate dueDate;
 	
 	private Loan() {}
 	
-	public Loan(Long userId, Long bookId, LocalDate dueDate) {
-		this.userId = userId;
+	public Loan(String username, Long bookId, LocalDate dueDate) {
+		this.username = username;
 		this.bookId = bookId;
 		this.dueDate = dueDate;
 	}

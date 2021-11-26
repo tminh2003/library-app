@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestTemplate;
 
 import com.myapps.library_app_shared.model.BookDTO;
 import com.myapps.libraryapp_gui.service.BookService;
@@ -43,12 +45,14 @@ public class BookController {
 		return "oneBook";
 	}
 	
-	@RequestMapping("/checkOut")
-	public String checkOut(	HttpSession session, 
+	@RequestMapping("/checkOut/{id}")
+	public String checkOut(	@PathVariable Long id,
+							HttpSession session, 
 							Model model) {
-		
+		System.out.println("here");
+		bookService.checkOutBookForUser(id, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
-		return "oneBook";
+		return "allBooks";
 	}
 	
 	@RequestMapping("/returnBook")
@@ -56,7 +60,7 @@ public class BookController {
 								Model model) {
 		
 		model.addAttribute("username", session.getAttribute("username"));
-		return "oneBook";
+		return "allBooks";
 	}
 	
 	@RequestMapping("/reportLost")
@@ -64,6 +68,6 @@ public class BookController {
 								Model model) {
 		
 		model.addAttribute("username", session.getAttribute("username"));
-		return "oneBook";
+		return "allBooks";
 	}
 }

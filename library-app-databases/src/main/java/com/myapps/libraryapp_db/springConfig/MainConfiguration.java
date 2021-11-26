@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.myapps.libraryapp_db.util.BookDTOMapper;
+import com.myapps.libraryapp_db.util.LoanDTOMapper;
 import com.myapps.libraryapp_db.util.UserDTOMapper;
 
 @Configuration
@@ -17,5 +18,10 @@ public class MainConfiguration {
 	@Bean 
 	public UserDTOMapper userDTOMapper() {
 		return new UserDTOMapper();
+	}
+	
+	@Bean
+	public LoanDTOMapper loanDTOMapper() {
+		return new LoanDTOMapper();
 	}
 }
