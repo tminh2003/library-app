@@ -49,7 +49,7 @@ public class BookController {
 	public String checkOut(	@PathVariable Long id,
 							HttpSession session, 
 							Model model) {
-		System.out.println("here");
+
 		bookService.checkOutBookForUser(id, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
 		return "allBooks";

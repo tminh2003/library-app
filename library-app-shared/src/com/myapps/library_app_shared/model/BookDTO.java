@@ -14,12 +14,12 @@ public class BookDTO{
 	
 	private BookDTO() {}
 	
-	public BookDTO(Long id, String title, String author, String isbn, double cost) {
+	public BookDTO(Long id, String title, String author, String isbn, double cost, String currentStatus) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.cost = cost;
-		this.currentStatus = "IN";
+		this.currentStatus = currentStatus;
 	}
 }

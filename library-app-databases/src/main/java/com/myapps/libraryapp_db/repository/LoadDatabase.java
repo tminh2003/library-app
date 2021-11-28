@@ -22,8 +22,8 @@ class LoadDatabase {
 	CommandLineRunner initBookDatabase(BookRepository repository) {
 
 		return args -> {
-			log.info("Preloading " + repository.save(new Book("LOTR", "Tolkien", "123456", 12.00)));
-			log.info("Preloading " + repository.save(new Book("Harry Potter", "Rowling", "123457", 12.00)));
+			log.info("Preloading " + repository.save(new Book("LOTR", "Tolkien", "123456", 12.00, "IN")));
+			log.info("Preloading " + repository.save(new Book("Harry Potter", "Rowling", "123457", 12.00, "IN")));
 		};
 	}
 

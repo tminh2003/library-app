@@ -19,13 +19,13 @@ public class Book{
 	private double cost;
 	private String currentStatus;
 	
-	private Book() {}
+	public Book() {}
 	
-	public Book(String title, String author, String isbn, double cost) {
+	public Book(String title, String author, String isbn, double cost, String currentStatus) {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.cost = cost;
-		this.currentStatus = "IN";
+		this.currentStatus = currentStatus;
 	}
 }

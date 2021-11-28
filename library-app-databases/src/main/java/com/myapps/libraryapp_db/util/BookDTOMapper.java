@@ -12,7 +12,8 @@ public class BookDTOMapper {
 							book.getTitle(),
 							book.getAuthor(),
 							book.getIsbn(),
-							book.getCost());
+							book.getCost(),
+							book.getCurrentStatus());
 	}
 	
 	public List<BookDTO> toDTO(List<Book> allBooks){
@@ -29,6 +30,7 @@ public class BookDTOMapper {
 		return new Book(bookDTO.getTitle(),
 						bookDTO.getAuthor(),
 						bookDTO.getIsbn(),
-						bookDTO.getCost());
+						bookDTO.getCost(),
+						bookDTO.getCurrentStatus());
 	}
 }
