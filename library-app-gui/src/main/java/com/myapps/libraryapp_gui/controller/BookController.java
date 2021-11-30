@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.client.RestTemplate;
 
 import com.myapps.library_app_shared.model.BookDTO;
 import com.myapps.libraryapp_gui.service.BookService;
@@ -52,7 +50,7 @@ public class BookController {
 
 		bookService.checkOutBookForUser(id, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
-		return "allBooks";
+		return "redirect:/books/" + id;
 	}
 	
 	@RequestMapping("/returnBook")
