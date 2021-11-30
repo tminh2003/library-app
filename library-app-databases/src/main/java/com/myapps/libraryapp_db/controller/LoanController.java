@@ -34,8 +34,8 @@ public class LoanController {
 		loanRepository.save(dtoMapper.toEntity(loan));
 	}
 
-	@GetMapping("/loans/{id}")
-	public Loan one(@PathVariable Long id) {
-		return loanRepository.findById(id).get();
+	@GetMapping("/loans/{username}")
+	public List<LoanDTO> allLoansForUser(@PathVariable String username) {
+		return dtoMapper.toDTO(loanRepository.findByUsername(username));
 	}
 }
