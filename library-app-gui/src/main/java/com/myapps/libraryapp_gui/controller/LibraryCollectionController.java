@@ -28,46 +28,34 @@ public class LibraryCollectionController {
 		model.addAttribute("allBooks", allBooks);
 		return "allBooks";
 	}
-	
+	//----------------------------------------------------------------------------------------------
 	@RequestMapping("/books/{isbn}")
-	public String oneBook(	@PathVariable String isbn, 
-							HttpSession session, 
-							Model model) {
-		
-		BookDTO bookDTO = bookService.getBookByIsbn(isbn);
-		
+	public String oneBook(@PathVariable String isbn, HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
 		
-		boolean loggedIn = !(username == null);
-		
 		model.addAttribute("bookCheckedOutByThisUser", false);
-		model.addAttribute("loggedIn", loggedIn);
+		model.addAttribute("loggedIn", username != null);
 		model.addAttribute("username", username);
-		model.addAttribute("book", bookDTO);
+		model.addAttribute("book", bookService.getBookByIsbn(isbn));
 		return "oneBook";
 	}
-	
+	//----------------------------------------------------------------------------------------------
 	@RequestMapping("/checkOut/{isbn}")
-	public String checkOut(	@PathVariable String isbn,
-							HttpSession session, 
-							Model model) {
+	public String checkOut(	@PathVariable String isbn, HttpSession session, Model model) {
 
 		libraryService.checkOutBookForUser(isbn, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
 		return "redirect:/books/" + isbn;
 	}
-	
+	//----------------------------------------------------------------------------------------------
 	@RequestMapping("/returnBook")
-	public String returnBook(	HttpSession session, 
-								Model model) {
-		
+	public String returnBook(HttpSession session, Model model) {
 		model.addAttribute("username", session.getAttribute("username"));
 		return "allBooks";
 	}
-	
+	//----------------------------------------------------------------------------------------------	
 	@RequestMapping("/reportLost")
-	public String reportLost(	HttpSession session, 
-								Model model) {
+	public String reportLost(HttpSession session, Model model) {
 		
 		model.addAttribute("username", session.getAttribute("username"));
 		return "allBooks";

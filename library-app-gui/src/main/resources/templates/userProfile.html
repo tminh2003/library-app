@@ -10,6 +10,13 @@
 	
 	<p th:text = "${user}"></p>
 	<a href = "/logout">Logout</a>
+	
+	<hr>
+	
+	<h1>All loans</h1>
+	<div th:each = "loan : ${allLoans}">
+		<p th:text = "${loan}">
+	</div>
 </body>
 
 </html>

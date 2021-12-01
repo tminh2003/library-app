@@ -13,7 +13,7 @@ public class LoanService {
 		
 		return restTemplate.getForObject("http://localhost:8081/loans/" + username, LoanDTO[].class);
 	}
-	
+	//----------------------------------------------------------------------------------------------
 	public void createLoanForUser(String username, String bookIsbn, int howLong) {
 		RestTemplate restTemplate = new RestTemplate();
 		
