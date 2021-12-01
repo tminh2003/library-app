@@ -1,8 +1,5 @@
 package com.myapps.libraryapp_gui.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.library_app_shared.model.UserDTO;
+import com.myapps.libraryapp_gui.service.LoanService;
 import com.myapps.libraryapp_gui.service.UserService;
 
 @Controller
@@ -19,9 +17,11 @@ public class UserProfileController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private LoanService loanService;
+	
 	@RequestMapping("/userProfile")
-	public String userProfile(	HttpSession session,
-								Model model) {
+	public String userProfile(HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
 		
 		//If not logged in
@@ -31,8 +31,7 @@ public class UserProfileController {
 		
 		UserDTO user = userService.getUserByUsername(username);
 		
-		ArrayList<LoanDTO> allLoans = new ArrayList<LoanDTO>();
-		allLoans.add(new LoanDTO("jack_frost", "123456", LocalDate.now()));
+		LoanDTO[] allLoans = loanService.getAllLoansForUser(username);
 		
 		model.addAttribute("allLoans", allLoans);
 		model.addAttribute("user", user);
