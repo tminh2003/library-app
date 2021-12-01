@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myapps.library_app_shared.model.BookDTO;
+import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.libraryapp_gui.service.BookService;
 import com.myapps.libraryapp_gui.service.LibraryService;
+import com.myapps.libraryapp_gui.service.LoanService;
 
 @Controller
 public class LibraryCollectionController {
@@ -19,6 +21,9 @@ public class LibraryCollectionController {
 	
 	@Autowired
 	private LibraryService libraryService;
+	
+	@Autowired
+	private LoanService loanService;
 	
 	@RequestMapping("/books")
 	public String books(HttpSession session, Model model) {
@@ -33,7 +38,15 @@ public class LibraryCollectionController {
 	public String oneBook(@PathVariable String isbn, HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
 		
-		model.addAttribute("bookCheckedOutByThisUser", false);
+		LoanDTO[] thisUsersLoans = loanService.getAllLoansForUser(username);
+		boolean bookCheckedOutByThisUser = false;
+		
+		for(LoanDTO loanDTO : thisUsersLoans) {
+			if(loanDTO.getBookIsbn().equals(isbn))
+				bookCheckedOutByThisUser = true;
+		}
+		
+		model.addAttribute("bookCheckedOutByThisUser", bookCheckedOutByThisUser);
 		model.addAttribute("loggedIn", username != null);
 		model.addAttribute("username", username);
 		model.addAttribute("book", bookService.getBookByIsbn(isbn));
