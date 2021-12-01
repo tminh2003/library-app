@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myapps.library_app_shared.model.BookDTO;
 import com.myapps.libraryapp_gui.service.BookService;
+import com.myapps.libraryapp_gui.service.LibraryService;
 
 @Controller
 public class LibraryCollectionController {
 	@Autowired 
 	private BookService bookService;
+	
+	@Autowired
+	private LibraryService libraryService;
 	
 	@RequestMapping("/books")
 	public String books(HttpSession session, Model model) {
@@ -48,7 +52,7 @@ public class LibraryCollectionController {
 							HttpSession session, 
 							Model model) {
 
-		bookService.checkOutBookForUser(isbn, session.getAttribute("username").toString(), 30);
+		libraryService.checkOutBookForUser(isbn, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
 		return "redirect:/books/" + isbn;
 	}
