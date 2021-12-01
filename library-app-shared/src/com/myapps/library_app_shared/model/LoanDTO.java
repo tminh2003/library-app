@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoanDTO {
 	private String username;
-	private Long bookId;
+	private String bookIsbn;
 	private LocalDate dueDate;
 	
 	private LoanDTO() {}

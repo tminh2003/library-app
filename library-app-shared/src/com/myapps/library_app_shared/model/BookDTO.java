@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class BookDTO{
 
-	private Long id;
 	private String title;
 	private String author;
 	private String isbn;
@@ -14,8 +13,7 @@ public class BookDTO{
 	
 	private BookDTO() {}
 	
-	public BookDTO(Long id, String title, String author, String isbn, double cost, String currentStatus) {
-		this.id = id;
+	public BookDTO(String title, String author, String isbn, double cost, String currentStatus) {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;

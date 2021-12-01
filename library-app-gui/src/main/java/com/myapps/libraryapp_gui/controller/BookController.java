@@ -25,12 +25,12 @@ public class BookController {
 		return "allBooks";
 	}
 	
-	@RequestMapping("/books/{id}")
-	public String oneBook(	@PathVariable Long id, 
+	@RequestMapping("/books/{isbn}")
+	public String oneBook(	@PathVariable String isbn, 
 							HttpSession session, 
 							Model model) {
 		
-		BookDTO bookDTO = bookService.getBookByIdNumber(id);
+		BookDTO bookDTO = bookService.getBookByIsbn(isbn);
 		
 		String username = (String) session.getAttribute("username");
 		
@@ -43,14 +43,14 @@ public class BookController {
 		return "oneBook";
 	}
 	
-	@RequestMapping("/checkOut/{id}")
-	public String checkOut(	@PathVariable Long id,
+	@RequestMapping("/checkOut/{isbn}")
+	public String checkOut(	@PathVariable String isbn,
 							HttpSession session, 
 							Model model) {
 
-		bookService.checkOutBookForUser(id, session.getAttribute("username").toString(), 30);
+		bookService.checkOutBookForUser(isbn, session.getAttribute("username").toString(), 30);
 		model.addAttribute("username", session.getAttribute("username"));
-		return "redirect:/books/" + id;
+		return "redirect:/books/" + isbn;
 	}
 	
 	@RequestMapping("/returnBook")

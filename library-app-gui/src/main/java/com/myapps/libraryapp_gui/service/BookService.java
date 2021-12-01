@@ -16,21 +16,21 @@ public class BookService {
 		return obj;
 	}
 
-	public BookDTO getBookByIdNumber(Long id) {
+	public BookDTO getBookByIsbn(String isbn) {
 		RestTemplate restTemplate = new RestTemplate();
-		BookDTO bookDTO = restTemplate.getForObject("http://localhost:8081/books/" + id, BookDTO.class);
+		BookDTO bookDTO = restTemplate.getForObject("http://localhost:8081/books/" + isbn, BookDTO.class);
 		return bookDTO;
 	}
 
-	public void checkOutBookForUser(Long bookId, String username, int howLong) {
+	public void checkOutBookForUser(String isbn, String username, int howLong) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		BookDTO bookDTO = getBookByIdNumber(bookId);
+		BookDTO bookDTO = getBookByIsbn(isbn);
 		bookDTO.setCurrentStatus("OUT");
 		
 		restTemplate.put("http://localhost:8081/books", bookDTO, BookDTO.class);
 		restTemplate.postForObject("http://localhost:8081/loans",
-				new LoanDTO(username, bookId, LocalDate.now().plusDays(howLong)), LoanDTO.class);
+				new LoanDTO(username, isbn, LocalDate.now().plusDays(howLong)), LoanDTO.class);
 	}
 
 	public void returnBookForUser(Long bookId, String username) {

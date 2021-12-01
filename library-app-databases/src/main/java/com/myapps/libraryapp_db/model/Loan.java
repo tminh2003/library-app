@@ -16,14 +16,14 @@ public class Loan{
 
 	private @Id @GeneratedValue(generator = "my_loan_id_generator") Long id;
 	private String username;
-	private Long bookId;
+	private String bookIsbn;
 	private LocalDate dueDate;
 	
 	private Loan() {}
 	
-	public Loan(String username, Long bookId, LocalDate dueDate) {
+	public Loan(String username, String bookIsbn, LocalDate dueDate) {
 		this.username = username;
-		this.bookId = bookId;
+		this.bookIsbn = bookIsbn;
 		this.dueDate = dueDate;
 	}
 }

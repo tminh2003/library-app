@@ -8,8 +8,7 @@ import com.myapps.libraryapp_db.model.Book;
 
 public class BookDTOMapper {
 	public BookDTO toDTO(Book book) {
-		return new BookDTO(	book.getId(),
-							book.getTitle(),
+		return new BookDTO(	book.getTitle(),
 							book.getAuthor(),
 							book.getIsbn(),
 							book.getCost(),

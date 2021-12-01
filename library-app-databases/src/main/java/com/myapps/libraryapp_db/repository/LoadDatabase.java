@@ -40,7 +40,7 @@ class LoadDatabase {
 	CommandLineRunner initLoanDatabase(LoanRepository repository) {
 
 		return args -> {
-			log.info("Preloading " + repository.save(new Loan("jack_frost", 1L, LocalDate.of(2021, 11, 24))));
+			log.info("Preloading " + repository.save(new Loan("jack_frost", "123456", LocalDate.of(2021, 11, 24))));
 		};
 	}
 }

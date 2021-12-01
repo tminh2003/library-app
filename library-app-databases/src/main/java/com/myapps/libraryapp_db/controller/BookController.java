@@ -31,7 +31,7 @@ public class BookController {
 	
 	@PutMapping("/books")
 	public void updateOne(@RequestBody BookDTO bookDTO) {
-		Book book = bookRepository.getById(bookDTO.getId());
+		Book book = bookRepository.findByIsbn(bookDTO.getIsbn());
 		book.setAuthor(bookDTO.getAuthor());
 		book.setTitle(bookDTO.getTitle());
 		book.setIsbn(bookDTO.getIsbn());
@@ -40,9 +40,9 @@ public class BookController {
 		bookRepository.save(book);
 	}
 
-	@GetMapping("/books/{id}")
-	public BookDTO one(@PathVariable Long id) {
+	@GetMapping("/books/{isbn}")
+	public BookDTO one(@PathVariable String isbn) {
 
-		return dtoMapper.toDTO(bookRepository.findById(id).get());
+		return dtoMapper.toDTO(bookRepository.findByIsbn(isbn));
 	}
 }

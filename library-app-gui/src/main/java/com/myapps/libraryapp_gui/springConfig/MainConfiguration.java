@@ -12,6 +12,7 @@ import com.myapps.libraryapp_gui.security.LoginSuccessHandler;
 import com.myapps.libraryapp_gui.security.MyLogoutSuccessHandler;
 import com.myapps.libraryapp_gui.service.ActiveUserService;
 import com.myapps.libraryapp_gui.service.BookService;
+import com.myapps.libraryapp_gui.service.LoanService;
 import com.myapps.libraryapp_gui.service.UserSecurityDetailsService;
 import com.myapps.libraryapp_gui.service.UserService;
 
@@ -41,6 +42,11 @@ public class MainConfiguration {
 	@Bean
 	public BookService bookService() {
 		return new BookService();
+	}
+	
+	@Bean
+	public LoanService loanService() {
+		return new LoanService();
 	}
 	
 	@Bean
