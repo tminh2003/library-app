@@ -10,7 +10,7 @@
 	
 	<div th:each = "book : ${allBooks}">
 		<a th:text = "|${book.title}   ${book.author}|"
-		th:href = "@{http://localhost:8080/books/{id}(id = ${book.id})}"></a>
+		th:href = "@{http://localhost:8080/books/{isbn}(isbn = ${book.isbn})}"></a>
 	</div>
 </body>
 

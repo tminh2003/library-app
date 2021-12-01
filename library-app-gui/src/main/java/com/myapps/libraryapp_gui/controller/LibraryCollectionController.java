@@ -12,7 +12,7 @@ import com.myapps.library_app_shared.model.BookDTO;
 import com.myapps.libraryapp_gui.service.BookService;
 
 @Controller
-public class BookController {
+public class LibraryCollectionController {
 	@Autowired 
 	private BookService bookService;
 	

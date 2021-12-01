@@ -11,7 +11,7 @@
 		<ul>
 			<li><a
 				th:text="${bookCheckedOutByThisUser} ? 'Recheck' : 'Check out'"
-				th:href="${loggedIn} ? @{'/checkOut/' + ${book.id}} : '/login'"></a></li>
+				th:href="${loggedIn} ? @{'/checkOut/' + ${book.isbn}} : '/login'"></a></li>
 			<li><a
 				th:text="(${bookCheckedOutByThisUser} and ${loggedIn}) ? 'Return' : ''"
 				th:href="'/returnBook'"></a></li>
