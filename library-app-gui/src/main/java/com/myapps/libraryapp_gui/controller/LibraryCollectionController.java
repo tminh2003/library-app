@@ -37,15 +37,22 @@ public class LibraryCollectionController {
 	@RequestMapping("/books/{isbn}")
 	public String oneBook(@PathVariable String isbn, HttpSession session, Model model) {
 		String username = (String) session.getAttribute("username");
-		
-		LoanDTO[] thisUsersLoans = loanService.getAllLoansForUser(username);
+
 		boolean bookCheckedOutByThisUser = false;
 		
-		for(LoanDTO loanDTO : thisUsersLoans) {
-			if(loanDTO.getBookIsbn().equals(isbn))
-				bookCheckedOutByThisUser = true;
+		//If logged in
+		if(username != null) {
+			LoanDTO[] thisUsersLoans = loanService.getAllLoansForUser(username);
+			for(LoanDTO loanDTO : thisUsersLoans) {
+				if(loanDTO.getBookIsbn().equals(isbn))
+					bookCheckedOutByThisUser = true;
+			}
 		}
+
+		BookDTO bookDTO = bookService.getBookByIsbn(isbn);
+		boolean bookAvailable = bookDTO.getCurrentStatus().equals("IN");
 		
+		model.addAttribute("bookAvailable", bookAvailable);
 		model.addAttribute("bookCheckedOutByThisUser", bookCheckedOutByThisUser);
 		model.addAttribute("loggedIn", username != null);
 		model.addAttribute("username", username);
@@ -56,7 +63,9 @@ public class LibraryCollectionController {
 	@RequestMapping("/checkOut/{isbn}")
 	public String checkOut(	@PathVariable String isbn, HttpSession session, Model model) {
 
-		libraryService.checkOutBookForUser(isbn, session.getAttribute("username").toString(), 30);
+		libraryService.checkOutBookForUser(	isbn, 
+											session.getAttribute("username").toString(), 
+											/*for*/30/*days*/);
 		model.addAttribute("username", session.getAttribute("username"));
 		return "redirect:/books/" + isbn;
 	}
