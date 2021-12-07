@@ -8,12 +8,14 @@ public class LibraryService {
 	private BookService bookService;
 	private LoanService loanService;
 
-	public void checkOutBookFor(String username, String isbn, int howLong) {
-		bookService.seteBookToOut(isbn);
-		loanService.createLoanForUser(username, isbn, howLong);
+	public void checkOutBookFor(String username, String isbn, int theDuration) {
+		bookService.setBookStateTo("OUT", isbn);
+		loanService.createLoanFor(username, isbn, theDuration);
 	}
 
 	public void returnBookFor(String username, String isbn) {
+		bookService.setBookStateTo("IN", isbn);
+		loanService.deleteLoanFor(username, isbn);
 	}
 
 	public void reportLostBookFor(String username, String isbn) {

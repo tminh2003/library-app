@@ -19,11 +19,11 @@ public class BookService {
 		return bookDTO;
 	}
 
-	public void seteBookToOut(String isbn) {
+	public void setBookStateTo(String state, String isbn) {
 		RestTemplate restTemplate = new RestTemplate();
 
 		BookDTO bookDTO = getBookByIsbn(isbn);
-		bookDTO.setCurrentStatus("OUT");
+		bookDTO.setCurrentStatus(state);
 		
 		restTemplate.put("http://localhost:8081/books", bookDTO, BookDTO.class);
 	}

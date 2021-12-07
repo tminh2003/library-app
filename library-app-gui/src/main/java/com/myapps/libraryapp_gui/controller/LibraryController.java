@@ -77,7 +77,7 @@ public class LibraryController {
 		libraryService.returnBookFor(username, isbn);
 		
 		model.addAttribute("username", username);
-		return "allBooks";
+		return "redirect:/books/" + isbn;
 	}
 	//----------------------------------------------------------------------------------------------	
 	@RequestMapping("/reportLost")
