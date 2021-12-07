@@ -15,7 +15,7 @@ import com.myapps.libraryapp_gui.service.LibraryService;
 import com.myapps.libraryapp_gui.service.LoanService;
 
 @Controller
-public class LibraryCollectionController {
+public class LibraryController {
 	@Autowired 
 	private BookService bookService;
 	
