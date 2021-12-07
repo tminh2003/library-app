@@ -8,16 +8,15 @@ public class LibraryService {
 	private BookService bookService;
 	private LoanService loanService;
 
-	public void checkOutBookForUser(String isbn, String username, int howLong) {
+	public void checkOutBookFor(String username, String isbn, int howLong) {
 		bookService.seteBookToOut(isbn);
 		loanService.createLoanForUser(username, isbn, howLong);
 	}
 
-	public void returnBookForUser(Long bookId, String username) {
-
+	public void returnBookFor(String username, String isbn) {
 	}
 
-	public void reportLostBookForUser(Long bookId, String username) {
+	public void reportLostBookFor(String username, String isbn) {
 
 	}
 }

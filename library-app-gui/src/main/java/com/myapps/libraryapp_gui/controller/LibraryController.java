@@ -61,18 +61,22 @@ public class LibraryController {
 	}
 	//----------------------------------------------------------------------------------------------
 	@RequestMapping("/checkOut/{isbn}")
-	public String checkOut(	@PathVariable String isbn, HttpSession session, Model model) {
+	public String checkOut(@PathVariable String isbn, HttpSession session, Model model) {
 
-		libraryService.checkOutBookForUser(	isbn, 
-											session.getAttribute("username").toString(), 
-											/*for*/30/*days*/);
+		libraryService.checkOutBookFor(	session.getAttribute("username").toString(), 
+										isbn, 
+										30/*days*/);
 		model.addAttribute("username", session.getAttribute("username"));
 		return "redirect:/books/" + isbn;
 	}
 	//----------------------------------------------------------------------------------------------
-	@RequestMapping("/returnBook")
-	public String returnBook(HttpSession session, Model model) {
-		model.addAttribute("username", session.getAttribute("username"));
+	@RequestMapping("/returnBook/{isbn}")
+	public String returnBook(@PathVariable String isbn, HttpSession session, Model model) {
+		String username = session.getAttribute("username").toString();
+		
+		libraryService.returnBookFor(username, isbn);
+		
+		model.addAttribute("username", username);
 		return "allBooks";
 	}
 	//----------------------------------------------------------------------------------------------	
