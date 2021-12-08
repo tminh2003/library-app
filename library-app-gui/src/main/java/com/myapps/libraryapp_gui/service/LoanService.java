@@ -8,7 +8,7 @@ import com.myapps.library_app_shared.model.LoanDTO;
 
 public class LoanService {
 
-	public LoanDTO[] getAllLoansForUser(String username) {
+	public LoanDTO[] getAllLoansFor(String username) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		return restTemplate.getForObject("http://localhost:8081/loans/" + username, LoanDTO[].class);

@@ -42,7 +42,7 @@ public class LibraryController {
 		
 		//If logged in
 		if(username != null) {
-			LoanDTO[] thisUsersLoans = loanService.getAllLoansForUser(username);
+			LoanDTO[] thisUsersLoans = loanService.getAllLoansFor(username);
 			for(LoanDTO loanDTO : thisUsersLoans) {
 				if(loanDTO.getBookIsbn().equals(isbn))
 					bookCheckedOutByThisUser = true;

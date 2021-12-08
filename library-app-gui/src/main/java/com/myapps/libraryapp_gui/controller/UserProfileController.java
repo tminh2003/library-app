@@ -31,7 +31,7 @@ public class UserProfileController {
 		
 		UserDTO user = userService.getUserByUsername(username);
 		
-		LoanDTO[] allLoans = loanService.getAllLoansForUser(username);
+		LoanDTO[] allLoans = loanService.getAllLoansFor(username);
 		
 		model.addAttribute("allLoans", allLoans);
 		model.addAttribute("user", user);
