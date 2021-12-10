@@ -13,7 +13,7 @@ public class LoanServiceTest {
 	public void getAllLoansForUser() {
 		LoanService loanService = new LoanService();
 		
-		LoanDTO loanDTO = loanService.getAllLoansForUser("jack_frost")[0];
+		LoanDTO loanDTO = loanService.getAllLoansFor("jack_frost")[0];
 		assertThat(loanDTO.getUsername().equals("jack_frost"));
 	}
 }
