@@ -4,18 +4,23 @@ import org.springframework.web.client.RestTemplate;
 
 import com.myapps.library_app_shared.model.BookDTO;
 
-public class BookService {
+public class BookService{
+	private String RESOURCE_LOCATION;
+	
+	public BookService(String RESOURCE_LOCATION) {
+		this.RESOURCE_LOCATION = RESOURCE_LOCATION;
+	}
 
 	public BookDTO[] getAllBooks() {
 		RestTemplate restTemplate = new RestTemplate();
-		BookDTO[] obj = restTemplate.getForObject("http://localhost:8081/books", BookDTO[].class);
+		BookDTO[] obj = restTemplate.getForObject(RESOURCE_LOCATION, BookDTO[].class);
 
 		return obj;
 	}
 
 	public BookDTO getBookByIsbn(String isbn) {
 		RestTemplate restTemplate = new RestTemplate();
-		BookDTO bookDTO = restTemplate.getForObject("http://localhost:8081/books/" + isbn, BookDTO.class);
+		BookDTO bookDTO = restTemplate.getForObject(RESOURCE_LOCATION + "/" + isbn, BookDTO.class);
 		return bookDTO;
 	}
 
@@ -25,7 +30,7 @@ public class BookService {
 		BookDTO bookDTO = getBookByIsbn(isbn);
 		bookDTO.setCurrentStatus(state);
 		
-		restTemplate.put("http://localhost:8081/books", bookDTO, BookDTO.class);
+		restTemplate.put(RESOURCE_LOCATION, bookDTO, BookDTO.class);
 	}
 
 }

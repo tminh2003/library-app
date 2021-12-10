@@ -19,11 +19,7 @@ import com.myapps.libraryapp_gui.service.UserService;
 
 @Configuration
 public class MainConfiguration {
-
-	@Bean
-	public UserService userService() {
-		return new UserService();
-	}
+	private String REST_SERVER_URL = "http://localhost:8081";
 
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -41,13 +37,18 @@ public class MainConfiguration {
 	}
 	
 	@Bean
+	public UserService userService() {
+		return new UserService(REST_SERVER_URL + "/users", passwordEncoder());
+	}
+	
+	@Bean
 	public BookService bookService() {
-		return new BookService();
+		return new BookService(REST_SERVER_URL + "/books");
 	}
 	
 	@Bean
 	public LoanService loanService() {
-		return new LoanService();
+		return new LoanService(REST_SERVER_URL + "/loans");
 	}
 	
 	@Bean

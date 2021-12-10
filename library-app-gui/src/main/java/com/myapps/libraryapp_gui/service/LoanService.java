@@ -7,23 +7,29 @@ import org.springframework.web.client.RestTemplate;
 import com.myapps.library_app_shared.model.LoanDTO;
 
 public class LoanService {
+	private String RESOURCE_LOCATION;
+	
+	public LoanService(String RESOURCE_LOCATION) {
+		this.RESOURCE_LOCATION = RESOURCE_LOCATION;
+	}
 
 	public LoanDTO[] getAllLoansFor(String username) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		return restTemplate.getForObject("http://localhost:8081/loans/" + username, LoanDTO[].class);
+		return restTemplate.getForObject(RESOURCE_LOCATION + "/" + username, LoanDTO[].class);
 	}
 	//----------------------------------------------------------------------------------------------
 	public void createLoanFor(String username, String bookIsbn, int howLong) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		restTemplate.postForObject("http://localhost:8081/loans",
+		restTemplate.postForObject(RESOURCE_LOCATION,
 				new LoanDTO(username, bookIsbn, LocalDate.now().plusDays(howLong)), LoanDTO.class);
 	}
 	public void deleteLoanFor(String username, String isbn) {
 		RestTemplate restTemplate = new RestTemplate();
 		
-		restTemplate.delete(	"http://localhost:8081/loans"
+		restTemplate.delete(	RESOURCE_LOCATION
+							+	"/"
 							+	"?username=" + username
 							+	"&bookIsbn=" + isbn);
 	}
