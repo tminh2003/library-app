@@ -16,8 +16,8 @@ public class LibraryServiceTest {
 	public void testRollbackOnFail() {
 		// create mock user and book services
 		BookService mockBookService = mock(BookService.class);
-		BookService realBookService = new BookService();
-		LoanService loanService = new LoanService();
+		BookService realBookService = new BookService("http://localhost:9091/books");
+		LoanService loanService = new LoanService("http://localhost:9091/loans");
 
 		String username = "test_user";
 		String bookIsbn = "123457";

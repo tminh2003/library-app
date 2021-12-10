@@ -11,7 +11,7 @@ public class BookServiceTest {
 	
 	@Test
 	public void testGetBookByIsb() {
-		BookService bookService = new BookService();
+		BookService bookService = new BookService("http://localhost:9091/books");
 		BookDTO bookDTO = bookService.getBookByIsbn("123456");
 		assertThat(bookDTO.getTitle().equals("LOTR"));
 	}

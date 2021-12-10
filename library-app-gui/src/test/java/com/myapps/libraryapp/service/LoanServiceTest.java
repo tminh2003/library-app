@@ -11,7 +11,7 @@ public class LoanServiceTest {
 
 	@Test
 	public void getAllLoansForUser() {
-		LoanService loanService = new LoanService();
+		LoanService loanService = new LoanService("http://localhost:9091/loans");
 		
 		LoanDTO loanDTO = loanService.getAllLoansFor("jack_frost")[0];
 		assertThat(loanDTO.getUsername().equals("jack_frost"));
