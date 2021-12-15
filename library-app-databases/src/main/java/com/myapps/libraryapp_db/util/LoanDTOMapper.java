@@ -8,7 +8,8 @@ import com.myapps.libraryapp_db.model.Loan;
 
 public class LoanDTOMapper {
 	public LoanDTO toDTO(Loan loan) {
-		return new LoanDTO(	loan.getUsername(),
+		return new LoanDTO(	loan.getId(),
+							loan.getUsername(),
 							loan.getBookIsbn(),
 							loan.getDueDate());
 	}
@@ -24,7 +25,8 @@ public class LoanDTOMapper {
 	}
 	
 	public Loan toEntity(LoanDTO loanDTO) {
-		return new Loan(loanDTO.getUsername(),
+		return new Loan(loanDTO.getId(),
+						loanDTO.getUsername(),
 						loanDTO.getBookIsbn(),
 						loanDTO.getDueDate());
 	}

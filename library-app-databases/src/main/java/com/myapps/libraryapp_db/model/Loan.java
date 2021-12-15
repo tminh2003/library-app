@@ -26,5 +26,12 @@ public class Loan{
 		this.bookIsbn = bookIsbn;
 		this.dueDate = dueDate;
 	}
+	
+	public Loan(Long id, String username, String bookIsbn, LocalDate dueDate) {
+		this.id = id;
+		this.username = username;
+		this.bookIsbn = bookIsbn;
+		this.dueDate = dueDate;
+	}
 }
 

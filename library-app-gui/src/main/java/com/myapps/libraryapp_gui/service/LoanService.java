@@ -23,7 +23,7 @@ public class LoanService {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		restTemplate.postForObject(RESOURCE_LOCATION,
-				new LoanDTO(username, bookIsbn, LocalDate.now().plusDays(howLong)), LoanDTO.class);
+				new LoanDTO(0L, username, bookIsbn, LocalDate.now().plusDays(howLong)), LoanDTO.class);
 	}
 	public void deleteLoanFor(String username, String isbn) {
 		RestTemplate restTemplate = new RestTemplate();
