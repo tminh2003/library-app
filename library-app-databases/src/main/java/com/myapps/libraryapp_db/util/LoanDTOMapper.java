@@ -8,26 +8,24 @@ import com.myapps.libraryapp_db.model.Loan;
 
 public class LoanDTOMapper {
 	public LoanDTO toDTO(Loan loan) {
-		return new LoanDTO(	loan.getId(),
-							loan.getUsername(),
-							loan.getBookIsbn(),
-							loan.getDueDate());
+		return new LoanDTO(loan.getId(), loan.getUsername(), loan.getBookIsbn(), loan.getDueDate());
 	}
-	
-	public List<LoanDTO> toDTO(List<Loan> allLoans){
-		
-		List<LoanDTO> allDTOs= new ArrayList<LoanDTO>();
-		for(Loan loan : allLoans) {
+
+	public List<LoanDTO> toDTO(List<Loan> allLoans) {
+
+		List<LoanDTO> allDTOs = new ArrayList<LoanDTO>();
+		for (Loan loan : allLoans) {
 			allDTOs.add(toDTO(loan));
 		}
-		
+
 		return allDTOs;
 	}
-	
+
 	public Loan toEntity(LoanDTO loanDTO) {
-		return new Loan(loanDTO.getId(),
-						loanDTO.getUsername(),
-						loanDTO.getBookIsbn(),
-						loanDTO.getDueDate());
+		if (loanDTO.getId() == null) {
+			return new Loan(loanDTO.getUsername(), loanDTO.getBookIsbn(), loanDTO.getDueDate());
+		}else{
+			return new Loan(loanDTO.getId(), loanDTO.getUsername(), loanDTO.getBookIsbn(), loanDTO.getDueDate());
+		}
 	}
 }

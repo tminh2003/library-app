@@ -14,4 +14,9 @@ public class LoanDTO {
 	private LocalDate dueDate;
 	
 	private LoanDTO() {}
+	public LoanDTO(String username, String bookIsbn, LocalDate dueDate) {
+		this.username = username;
+		this.bookIsbn = bookIsbn;
+		this.dueDate = dueDate;
+	}
 }
