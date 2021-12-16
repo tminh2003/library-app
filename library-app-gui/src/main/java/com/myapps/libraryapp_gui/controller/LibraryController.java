@@ -70,11 +70,21 @@ public class LibraryController {
 		return "redirect:/books/" + isbn;
 	}
 	//----------------------------------------------------------------------------------------------
-	@RequestMapping("/returnBook/{isbn}")
+	@RequestMapping("/return/{isbn}")
 	public String returnBook(@PathVariable String isbn, HttpSession session, Model model) {
 		String username = session.getAttribute("username").toString();
 		
 		libraryService.returnBookFor(username, isbn);
+		
+		model.addAttribute("username", username);
+		return "redirect:/books/" + isbn;
+	}
+	//----------------------------------------------------------------------------------------------
+	@RequestMapping("/recheck/{isbn}")
+	public String recheckBook(@PathVariable String isbn, HttpSession session, Model model) {
+		String username = session.getAttribute("username").toString();
+		
+		libraryService.recheckBookFor(username, isbn, 30);
 		
 		model.addAttribute("username", username);
 		return "redirect:/books/" + isbn;
