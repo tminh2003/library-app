@@ -1,7 +1,5 @@
 package com.myapps.libraryapp_gui.service;
 
-import java.time.LocalDate;
-
 import com.myapps.library_app_shared.model.LoanDTO;
 
 import lombok.AllArgsConstructor;
@@ -29,9 +27,5 @@ public class LibraryService {
 				loanService.updateLoanFor(loanDTO.getId(), username, isbn, duration);
 			}
 		}
-	}
-
-	public void reportLostBookFor(String username, String isbn) {
-
 	}
 }
