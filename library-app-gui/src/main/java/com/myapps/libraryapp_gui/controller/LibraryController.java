@@ -89,11 +89,4 @@ public class LibraryController {
 		model.addAttribute("username", username);
 		return "redirect:/books/" + isbn;
 	}
-	//----------------------------------------------------------------------------------------------	
-	@RequestMapping("/reportLost")
-	public String reportLost(HttpSession session, Model model) {
-		
-		model.addAttribute("username", session.getAttribute("username"));
-		return "allBooks";
-	}
 }

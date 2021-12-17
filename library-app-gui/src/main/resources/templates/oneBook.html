@@ -17,7 +17,6 @@
 		<div th:if="${bookCheckedOutByThisUser and not bookAvailable}">
 			<li><a th:href="@{'/recheck/' + ${book.isbn}}"> Recheck</a></li>
 			<li><a th:href="@{'/return/' + ${book.isbn}}"> Return</a></li>
-			<li><a th:href="@{/reportLost}"> Report Lost</a></li>
 		</div>
 	</ul>
 
