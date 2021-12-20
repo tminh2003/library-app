@@ -27,7 +27,11 @@ public class UserService{
 		return user;
 	}
 	
-	public void addUser(String username, String email, String password, String authority) throws UsernameAlreadyExistsException {
+	public void addUser(String username, 
+						String email, 
+						String password, 
+						String authority, 
+						double fineBalance) throws UsernameAlreadyExistsException {
 		try {
 			getUserByUsername(username); //will throw exception if username not found
 			throw new UsernameAlreadyExistsException();
@@ -37,8 +41,15 @@ public class UserService{
 									email, 
 									passwordEncoder.encode(password), 
 									authority,
-									100);
+									fineBalance);
 			restTemplate.postForObject(RESOURCE_LOCATION, user, UserDTO.class);
 		}
+	}
+	
+	public void chargeUser(String username, double moneyAmount) {
+		UserDTO userDTO = getUserByUsername(username);
+		userDTO.setFineBalance(userDTO.getFineBalance() - moneyAmount);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.put(RESOURCE_LOCATION, userDTO, UserDTO.class);
 	}
 }

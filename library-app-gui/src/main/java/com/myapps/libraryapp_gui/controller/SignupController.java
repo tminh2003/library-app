@@ -40,7 +40,8 @@ public class SignupController {
 			userService.addUser(user.getUsername(),
 								user.getEmail(),
 								user.getPassword(),
-								"USER");
+								"USER",
+								100);
 		}catch(UsernameAlreadyExistsException ex) {
 			return "redirect:signup?error=usernameAlreadyExists";
 		}

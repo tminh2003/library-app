@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.myapps.libraryapp_gui.service.BookService;
 import com.myapps.libraryapp_gui.service.LibraryService;
 import com.myapps.libraryapp_gui.service.LoanService;
+import com.myapps.libraryapp_gui.service.UserService;
 
 public class LibraryServiceTest {
 
@@ -18,6 +19,7 @@ public class LibraryServiceTest {
 		BookService mockBookService = mock(BookService.class);
 		BookService realBookService = new BookService("http://localhost:9091/books");
 		LoanService loanService = new LoanService("http://localhost:9091/loans");
+		UserService userService = new UserService("http://localhost:9091/users", null);
 
 		String username = "test_user";
 		String bookIsbn = "123457";
@@ -26,7 +28,7 @@ public class LibraryServiceTest {
 		doThrow(new RuntimeException()).when(mockBookService).setBookStateTo("OUT", bookIsbn);
 
 		// make sure that the transaction did not finish
-		LibraryService libraryService = new LibraryService(mockBookService, loanService);
+		LibraryService libraryService = new LibraryService(null, mockBookService, loanService);
 
 		try {
 			libraryService.checkOutBookFor(username, bookIsbn, 30);

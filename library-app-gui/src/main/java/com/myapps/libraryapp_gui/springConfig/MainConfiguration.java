@@ -53,7 +53,7 @@ public class MainConfiguration {
 	
 	@Bean
 	public LibraryService libraryService() {
-		return new LibraryService(bookService(), loanService());
+		return new LibraryService(userService(), bookService(), loanService());
 	}
 	
 	@Bean

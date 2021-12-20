@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LibraryService {
 	
+	private UserService userService;
 	private BookService bookService;
 	private LoanService loanService;
 
 	public void checkOutBookFor(String username, String isbn, int duration) {
 		bookService.setBookStateTo("OUT", isbn);
 		loanService.createLoanFor(username, isbn, duration);
+		userService.chargeUser(username, bookService.getBookByIsbn(isbn).getCost());
 	}
 
 	public void returnBookFor(String username, String isbn) {
@@ -27,5 +29,6 @@ public class LibraryService {
 				loanService.updateLoanFor(loanDTO.getId(), username, isbn, duration);
 			}
 		}
+		userService.chargeUser(username, bookService.getBookByIsbn(isbn).getCost());
 	}
 }
