@@ -36,7 +36,8 @@ public class UserService{
 			UserDTO user = new UserDTO(	username, 
 									email, 
 									passwordEncoder.encode(password), 
-									authority);
+									authority,
+									100);
 			restTemplate.postForObject(RESOURCE_LOCATION, user, UserDTO.class);
 		}
 	}

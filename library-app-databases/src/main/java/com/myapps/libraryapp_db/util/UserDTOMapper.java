@@ -12,7 +12,8 @@ public class UserDTOMapper {
 		return new UserDTO(	user.getUsername(),
 							user.getEmail(),
 							user.getPassword(),
-							user.getAuthority());
+							user.getAuthority(),
+							user.getFineBalance());
 	}
 	
 	public List<UserDTO> toDTO(List<User> allUsers){
@@ -29,6 +30,7 @@ public class UserDTOMapper {
 		return new User(userDTO.getUsername(),
 						userDTO.getEmail(),
 						userDTO.getPassword(),
-						userDTO.getAuthority());
+						userDTO.getAuthority(),
+						userDTO.getFineBalance());
 	}
 }
