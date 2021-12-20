@@ -1,8 +1,10 @@
 package com.myapps.library_app_shared.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class BookDTO{
 
 	private String title;
@@ -12,12 +14,4 @@ public class BookDTO{
 	private String currentStatus;
 	
 	private BookDTO() {}
-	
-	public BookDTO(String title, String author, String isbn, double cost, String currentStatus) {
-		this.title = title;
-		this.author = author;
-		this.isbn = isbn;
-		this.cost = cost;
-		this.currentStatus = currentStatus;
-	}
 }

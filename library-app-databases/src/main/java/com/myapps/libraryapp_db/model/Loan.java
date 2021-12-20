@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
+@AllArgsConstructor
 @SequenceGenerator(name = "my_loan_id_generator", initialValue = 0)
 public class Loan{
 
@@ -22,13 +24,6 @@ public class Loan{
 	private Loan() {}
 	
 	public Loan(String username, String bookIsbn, LocalDate dueDate) {
-		this.username = username;
-		this.bookIsbn = bookIsbn;
-		this.dueDate = dueDate;
-	}
-	
-	public Loan(Long id, String username, String bookIsbn, LocalDate dueDate) {
-		this.id = id;
 		this.username = username;
 		this.bookIsbn = bookIsbn;
 		this.dueDate = dueDate;
