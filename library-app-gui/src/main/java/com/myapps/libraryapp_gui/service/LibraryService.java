@@ -12,8 +12,8 @@ public class LibraryService {
 	private LoanService loanService;
 
 	public void checkOutBookFor(String username, String isbn, int duration) {
-		bookService.setBookStateTo("OUT", isbn);
 		loanService.createLoanFor(username, isbn, duration);
+		bookService.setBookStateTo("OUT", isbn);
 		userService.chargeUser(username, bookService.getBookByIsbn(isbn).getCost());
 	}
 

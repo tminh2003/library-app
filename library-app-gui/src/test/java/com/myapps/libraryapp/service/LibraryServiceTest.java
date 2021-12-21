@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 
+import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.libraryapp_gui.service.BookService;
 import com.myapps.libraryapp_gui.service.LibraryService;
 import com.myapps.libraryapp_gui.service.LoanService;
@@ -17,9 +18,9 @@ public class LibraryServiceTest {
 	public void testRollbackOnFail() {
 		// create mock user and book services
 		BookService mockBookService = mock(BookService.class);
-		BookService realBookService = new BookService("http://localhost:9091/books");
-		LoanService loanService = new LoanService("http://localhost:9091/loans");
-		UserService userService = new UserService("http://localhost:9091/users", null);
+		BookService realBookService = new BookService("http://localhost:8081/books");
+		LoanService loanService = new LoanService("http://localhost:8081/loans");
+		UserService userService = new UserService("http://localhost:8081/users", null);
 
 		String username = "test_user";
 		String bookIsbn = "123457";
@@ -35,8 +36,9 @@ public class LibraryServiceTest {
 		} catch (Exception e) {}
 		
 		boolean everythingIsFine = realBookService.getBookByIsbn(bookIsbn).getCurrentStatus().equals("IN");
-		everythingIsFine &= loanService.getAllLoansFor(username) == null;
+		LoanDTO[] allLoans = loanService.getAllLoansFor(username);
+		everythingIsFine &= allLoans.length == 0;
 
-		assertThat(everythingIsFine);
+		assert(everythingIsFine);
 	}
 }

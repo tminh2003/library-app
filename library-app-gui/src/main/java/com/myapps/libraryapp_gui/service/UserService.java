@@ -38,10 +38,10 @@ public class UserService{
 		}catch(UsernameNotFoundException exception) {
 			RestTemplate restTemplate = new RestTemplate();
 			UserDTO user = new UserDTO(	username, 
-									email, 
-									passwordEncoder.encode(password), 
-									authority,
-									fineBalance);
+										email, 
+										passwordEncoder.encode(password), 
+										authority,
+										fineBalance);
 			restTemplate.postForObject(RESOURCE_LOCATION, user, UserDTO.class);
 		}
 	}
