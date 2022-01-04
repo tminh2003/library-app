@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.annotation.DirtiesContext.MethodMode;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
+import com.myapps.library_app_shared.model.DeleteLoanDTO;
 import com.myapps.library_app_shared.model.UpdateLoanDTO;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.repository.LoanRepository;
@@ -118,15 +118,21 @@ public class LoanServiceTest {
 
 		Loan expectedLoan = new Loan(loanId, usernameAfter, isbnAfter, dueDateAfter);
 		Loan retrievedLoan = loanRepository.findByUsername(usernameAfter).get(0);
-		
-		System.out.println(expectedLoan.toString());
-		System.out.println(retrievedLoan.toString());
 				
 		assert(retrievedLoan.equals(expectedLoan));
 	}
 
 	@Test
+	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void testDeleteLoan() {
-		assert(false);
+		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
+		LoanService loanService = new LoanService(loanRepository);
+		
+		loanRepository.save(new Loan("test_user", "123456", LocalDate.now()));
+		loanService.deleteLoan(new DeleteLoanDTO("test_user", "123456"));
+		
+		List<Loan> allLoans = loanRepository.findAll();
+		
+		assert(allLoans.size() == 0);
 	}
 }

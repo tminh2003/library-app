@@ -38,7 +38,13 @@ public class LoanService {
 	}
 
 	public void deleteLoan(DeleteLoanDTO deleteLoanDTO) {
-
+		List<Loan> allUserLoan = loanRepository.findByUsername(deleteLoanDTO.getUsername());
+		for(Loan loan : allUserLoan) {
+			if(loan.getBookIsbn().equals(deleteLoanDTO.getIsbn())) {
+				System.out.println(loan.toString());
+				loanRepository.delete(loan);
+			}
+		}
 	}
 
 }
