@@ -28,5 +28,12 @@ public class Loan{
 		this.bookIsbn = bookIsbn;
 		this.dueDate = dueDate;
 	}
+	
+	public boolean equals(Loan loan) {
+		return 	this.id == loan.getId() &&
+				this.username == loan.getUsername() &&
+				this.bookIsbn == loan.getBookIsbn() &&
+				this.dueDate.equals(loan.getDueDate());
+	}
 }
 

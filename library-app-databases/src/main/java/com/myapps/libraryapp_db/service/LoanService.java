@@ -31,7 +31,10 @@ public class LoanService {
 	}
 
 	public void updateLoan(UpdateLoanDTO updateLoanDTO) {
-
+		loanRepository.save(new Loan(	updateLoanDTO.getLoanId(),
+										updateLoanDTO.getUsername(),
+										updateLoanDTO.getIsbn(),
+										LocalDate.now().plusDays(updateLoanDTO.getHowLong())));
 	}
 
 	public void deleteLoan(DeleteLoanDTO deleteLoanDTO) {

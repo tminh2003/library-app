@@ -8,17 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
+import com.myapps.library_app_shared.model.UpdateLoanDTO;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.repository.LoanRepository;
 import com.myapps.libraryapp_db.service.LoanService;
 
-@SpringBootTest()
+@SpringBootTest
 public class LoanServiceTest {
 	private LoanRepository loanRepository;
+	
+	@Autowired
+	private ApplicationContext appContext;
 	
 	@Test
 	public void testGetAllLoans() {
@@ -65,7 +73,8 @@ public class LoanServiceTest {
 	}
 
 	@Test
-	public void testCreateLoan(ApplicationContext appContext) {
+	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+	public void testCreateLoan() {
 		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
 		LoanService loanService = new LoanService(loanRepository);
 		
@@ -79,16 +88,45 @@ public class LoanServiceTest {
 		
 		Loan retrievedLoan = loanRepository.findByUsername(username).get(0);
 		
-		assert(	retrievedLoan.getUsername().equals(username) && 
-				retrievedLoan.getBookIsbn().equals(isbn) && 
-				retrievedLoan.getDueDate().equals(dueDate));
+		boolean everythingIsOk = retrievedLoan.getUsername().equals(username);
+		everythingIsOk &= retrievedLoan.getBookIsbn().equals(isbn);
+		everythingIsOk &= retrievedLoan.getDueDate().equals(dueDate);
+		
+		assert(everythingIsOk);
 	}
 
+	@Test
+	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void testUpdateLoan() {
+		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
+		LoanService loanService = new LoanService(loanRepository);
+		
+		Long loanId = 1L;
+		String usernameBefore = "test_user1";
+		String isbnBefore = "123457";
+		int howLongBefore = 30;
+		LocalDate dueDateBefore = LocalDate.now().plusDays(howLongBefore);
+		
+		String usernameAfter = "test_user1";
+		String isbnAfter = "123457";
+		int howLongAfter = 60;
+		LocalDate dueDateAfter = LocalDate.now().plusDays(howLongAfter);
 
+		loanRepository.save(new Loan(usernameBefore, isbnBefore, dueDateBefore));
+		loanService.updateLoan(new UpdateLoanDTO(1L , usernameAfter, isbnAfter, howLongAfter));
+
+
+		Loan expectedLoan = new Loan(loanId, usernameAfter, isbnAfter, dueDateAfter);
+		Loan retrievedLoan = loanRepository.findByUsername(usernameAfter).get(0);
+		
+		System.out.println(expectedLoan.toString());
+		System.out.println(retrievedLoan.toString());
+				
+		assert(retrievedLoan.equals(expectedLoan));
 	}
 
+	@Test
 	public void testDeleteLoan() {
-
+		assert(false);
 	}
 }
