@@ -7,12 +7,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.MethodMode;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
@@ -23,10 +21,14 @@ import com.myapps.libraryapp_db.service.LoanService;
 
 @SpringBootTest
 public class LoanServiceTest {
-	private LoanRepository loanRepository;
 	
 	@Autowired
-	private ApplicationContext appContext;
+	private LoanRepository loanRepository;
+	
+	@BeforeEach
+	public void clearLoanRepository() {
+		loanRepository.deleteAll();
+	}
 	
 	@Test
 	public void testGetAllLoans() {
@@ -73,9 +75,7 @@ public class LoanServiceTest {
 	}
 
 	@Test
-	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void testCreateLoan() {
-		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
 		LoanService loanService = new LoanService(loanRepository);
 		
 		String username = "test_user1";
@@ -86,6 +86,7 @@ public class LoanServiceTest {
 		CreateLoanDTO createLoanDTO = new CreateLoanDTO(username, isbn, howLong);
 		loanService.createLoan(createLoanDTO);
 		
+		//Get first element
 		Loan retrievedLoan = loanRepository.findByUsername(username).get(0);
 		
 		boolean everythingIsOk = retrievedLoan.getUsername().equals(username);
@@ -96,9 +97,7 @@ public class LoanServiceTest {
 	}
 
 	@Test
-	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void testUpdateLoan() {
-		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
 		LoanService loanService = new LoanService(loanRepository);
 		
 		Long loanId = 1L;
@@ -123,9 +122,7 @@ public class LoanServiceTest {
 	}
 
 	@Test
-	@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 	public void testDeleteLoan() {
-		LoanRepository loanRepository = appContext.getBean(LoanRepository.class);
 		LoanService loanService = new LoanService(loanRepository);
 		
 		loanRepository.save(new Loan("test_user", "123456", LocalDate.now()));

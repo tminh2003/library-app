@@ -3,6 +3,9 @@ package com.myapps.libraryapp_db.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
 import com.myapps.library_app_shared.model.UpdateLoanDTO;
@@ -11,6 +14,8 @@ import com.myapps.libraryapp_db.repository.LoanRepository;
 
 public class LoanService {
 	private LoanRepository loanRepository;
+	
+	private Logger logger = LogManager.getLogger(LoanService.class);
 	
 	public LoanService(LoanRepository loanRepository) {
 		this.loanRepository = loanRepository;
@@ -28,6 +33,7 @@ public class LoanService {
 		loanRepository.save(new Loan(	createLoanDTO.getUsername(), 
 										createLoanDTO.getIsbn(), 
 										LocalDate.now().plusDays(createLoanDTO.getHowLong())));
+		logger.info("Loan created for " + createLoanDTO.toString());
 	}
 
 	public void updateLoan(UpdateLoanDTO updateLoanDTO) {
@@ -35,14 +41,15 @@ public class LoanService {
 										updateLoanDTO.getUsername(),
 										updateLoanDTO.getIsbn(),
 										LocalDate.now().plusDays(updateLoanDTO.getHowLong())));
+		logger.info("Loan updated for " + updateLoanDTO.toString());
 	}
 
 	public void deleteLoan(DeleteLoanDTO deleteLoanDTO) {
 		List<Loan> allUserLoan = loanRepository.findByUsername(deleteLoanDTO.getUsername());
 		for(Loan loan : allUserLoan) {
 			if(loan.getBookIsbn().equals(deleteLoanDTO.getIsbn())) {
-				System.out.println(loan.toString());
 				loanRepository.delete(loan);
+				logger.info("Loan deleted for " + deleteLoanDTO.toString());
 			}
 		}
 	}
