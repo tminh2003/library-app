@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.myapps.libraryapp_db.model.Book;
 import com.myapps.libraryapp_db.model.Loan;
@@ -18,6 +19,7 @@ class LoadDatabase {
 
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+	@Profile("!test")
 	@Bean
 	CommandLineRunner initBookDatabase(BookRepository repository) {
 
@@ -27,6 +29,7 @@ class LoadDatabase {
 		};
 	}
 
+	@Profile("!test")
 	@Bean
 	CommandLineRunner initUserDatabase(UserRepository repository) {
 
@@ -44,6 +47,7 @@ class LoadDatabase {
 		};
 	}
 	
+	@Profile("!test")
 	@Bean
 	CommandLineRunner initLoanDatabase(LoanRepository repository) {
 

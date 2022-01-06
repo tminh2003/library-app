@@ -9,8 +9,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
@@ -19,6 +22,8 @@ import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.repository.LoanRepository;
 import com.myapps.libraryapp_db.service.LoanService;
 
+@ActiveProfiles("test")
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class LoanServiceTest {
 	
@@ -93,6 +98,8 @@ public class LoanServiceTest {
 		everythingIsOk &= retrievedLoan.getBookIsbn().equals(isbn);
 		everythingIsOk &= retrievedLoan.getDueDate().equals(dueDate);
 		
+		//Make sure user is charged and book is set to out
+		
 		assert(everythingIsOk);
 	}
 
@@ -100,24 +107,24 @@ public class LoanServiceTest {
 	public void testUpdateLoan() {
 		LoanService loanService = new LoanService(loanRepository);
 		
-		Long loanId = 1L;
+		Long loanId = 0L;
 		String usernameBefore = "test_user1";
-		String isbnBefore = "123457";
+		String isbnBefore = "123456";
 		int howLongBefore = 30;
 		LocalDate dueDateBefore = LocalDate.now().plusDays(howLongBefore);
 		
 		String usernameAfter = "test_user1";
-		String isbnAfter = "123457";
+		String isbnAfter = "123456";
 		int howLongAfter = 60;
 		LocalDate dueDateAfter = LocalDate.now().plusDays(howLongAfter);
 
-		loanRepository.save(new Loan(usernameBefore, isbnBefore, dueDateBefore));
-		loanService.updateLoan(new UpdateLoanDTO(1L , usernameAfter, isbnAfter, howLongAfter));
+		loanRepository.save(new Loan(loanId, usernameBefore, isbnBefore, dueDateBefore));
+		loanService.updateLoan(new UpdateLoanDTO(loanId , usernameAfter, isbnAfter, howLongAfter));
 
 
 		Loan expectedLoan = new Loan(loanId, usernameAfter, isbnAfter, dueDateAfter);
 		Loan retrievedLoan = loanRepository.findByUsername(usernameAfter).get(0);
-				
+
 		assert(retrievedLoan.equals(expectedLoan));
 	}
 
