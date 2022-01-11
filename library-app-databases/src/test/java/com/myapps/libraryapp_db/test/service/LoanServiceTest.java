@@ -108,12 +108,8 @@ public class LoanServiceTest {
 		boolean everythingIsOk = retrievedLoan.getUsername().equals("test_user1");
 		everythingIsOk &= retrievedLoan.getBookIsbn().equals("123456");
 		everythingIsOk &= retrievedLoan.getDueDate().equals(LocalDate.now().plusDays(30));
-		System.out.println(everythingIsOk);
 		everythingIsOk &= retrievedUser.getFineBalance() == 70;
-		System.out.println(retrievedUser);
-		System.out.println(everythingIsOk);
 		everythingIsOk &= retrievedBook.getCurrentStatus().equals("OUT");
-		System.out.println(everythingIsOk);
 
 		assert (everythingIsOk);
 	}
@@ -121,23 +117,14 @@ public class LoanServiceTest {
 	@Test
 	public void testUpdateLoan() {
 		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
+      
+		loanRepository.save(new Loan(0L, "test_user1", "123456", LocalDate.now().plusDays(30)));
+		
+		//change due date
+		loanService.updateLoan(new UpdateLoanDTO(0L, "test_user1", "123456", LocalDate.now().plusDays(60)));
 
-		Long loanId = 0L;
-		String usernameBefore = "test_user1";
-		String isbnBefore = "123456";
-		int howLongBefore = 30;
-		LocalDate dueDateBefore = LocalDate.now().plusDays(howLongBefore);
-
-		String usernameAfter = "test_user1";
-		String isbnAfter = "123456";
-		int howLongAfter = 60;
-		LocalDate dueDateAfter = LocalDate.now().plusDays(howLongAfter);
-
-		loanRepository.save(new Loan(loanId, usernameBefore, isbnBefore, dueDateBefore));
-		loanService.updateLoan(new UpdateLoanDTO(loanId, usernameAfter, isbnAfter, howLongAfter));
-
-		Loan expectedLoan = new Loan(loanId, usernameAfter, isbnAfter, dueDateAfter);
-		Loan retrievedLoan = loanRepository.findByUsername(usernameAfter).get(0);
+		Loan expectedLoan = new Loan(0L, "test_user1", "123456", LocalDate.now().plusDays(60));
+		Loan retrievedLoan = loanRepository.findByUsername("test_user1").get(0);
 
 		assert (retrievedLoan.equals(expectedLoan));
 	}

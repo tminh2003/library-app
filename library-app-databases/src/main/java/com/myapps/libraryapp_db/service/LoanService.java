@@ -57,7 +57,7 @@ public class LoanService {
 		loanRepository.save(new Loan(	updateLoanDTO.getLoanId(),
 										updateLoanDTO.getUsername(),
 										updateLoanDTO.getIsbn(),
-										LocalDate.now().plusDays(updateLoanDTO.getHowLong())));
+										updateLoanDTO.getDueDate()));
 		logger.info("Loan updated for " + updateLoanDTO.toString());
 	}
 
