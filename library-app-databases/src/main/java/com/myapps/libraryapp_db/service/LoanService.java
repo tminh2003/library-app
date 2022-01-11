@@ -9,16 +9,24 @@ import org.apache.logging.log4j.Logger;
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
 import com.myapps.library_app_shared.model.UpdateLoanDTO;
+import com.myapps.libraryapp_db.model.Book;
 import com.myapps.libraryapp_db.model.Loan;
+import com.myapps.libraryapp_db.model.User;
+import com.myapps.libraryapp_db.repository.BookRepository;
 import com.myapps.libraryapp_db.repository.LoanRepository;
+import com.myapps.libraryapp_db.repository.UserRepository;
 
 public class LoanService {
 	private LoanRepository loanRepository;
+	private UserRepository userRepository;
+	private BookRepository bookRepository;
 	
 	private Logger logger = LogManager.getLogger(LoanService.class);
 	
-	public LoanService(LoanRepository loanRepository) {
+	public LoanService(LoanRepository loanRepository, UserRepository userRepository, BookRepository bookRepository) {
 		this.loanRepository = loanRepository;
+		this.userRepository = userRepository;
+		this.bookRepository = bookRepository;
 	}
 
 	public List<Loan> getAllLoans() {
@@ -33,6 +41,15 @@ public class LoanService {
 		loanRepository.save(new Loan(	createLoanDTO.getUsername(), 
 										createLoanDTO.getIsbn(), 
 										LocalDate.now().plusDays(createLoanDTO.getHowLong())));
+		Book book = bookRepository.findByIsbn(createLoanDTO.getIsbn());
+		User user = userRepository.findByUsername(createLoanDTO.getUsername());
+
+		book.setCurrentStatus("OUT");
+		user.setFineBalance(user.getFineBalance() - book.getCost());
+		
+		bookRepository.save(book);
+		userRepository.save(user);
+		
 		logger.info("Loan created for " + createLoanDTO.toString());
 	}
 
