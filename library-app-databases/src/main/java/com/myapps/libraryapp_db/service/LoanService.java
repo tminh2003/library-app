@@ -40,7 +40,7 @@ public class LoanService {
 	public void createLoan(CreateLoanDTO createLoanDTO) {
 		loanRepository.save(new Loan(	createLoanDTO.getUsername(), 
 										createLoanDTO.getIsbn(), 
-										LocalDate.now().plusDays(createLoanDTO.getHowLong())));
+										createLoanDTO.getDueDate()));
 		Book book = bookRepository.findByIsbn(createLoanDTO.getIsbn());
 		User user = userRepository.findByUsername(createLoanDTO.getUsername());
 

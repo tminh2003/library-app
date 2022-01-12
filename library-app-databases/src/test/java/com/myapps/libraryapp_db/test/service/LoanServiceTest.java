@@ -1,5 +1,7 @@
 package com.myapps.libraryapp_db.test.service;
 
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -98,7 +100,7 @@ public class LoanServiceTest {
 		userRepository.save(new User("test_user1", "", "", "", 100));
 		
 		//Execute method
-		loanService.createLoan(new CreateLoanDTO("test_user1", "123456", 30));
+		loanService.createLoan(new CreateLoanDTO("test_user1", "123456", LocalDate.now().plusDays(30)));
 
 		//Retrieve items to check
 		Loan retrievedLoan = loanRepository.findByUsername("test_user1").get(0);
@@ -113,20 +115,37 @@ public class LoanServiceTest {
 
 		assert (everythingIsOk);
 	}
+	
+	@Test
+	public void testCreateLoan_rollbackWhenFail() {
+		//Preloading
+		bookRepository.save(new Book("123456", "", "", 30, "IN"));
+		userRepository.save(new User("test_user", "", "", "", 100));
+		
+		//Make any book repository call fail
+		BookRepository mockBookRepository = mock(BookRepository.class);
+		doThrow(new RuntimeException()).when(mockBookRepository).save(any(Book.class));
+
+		LoanService loanService = new LoanService(loanRepository, userRepository, mockBookRepository);
+		loanService.createLoan(new CreateLoanDTO("test_user", "123456", LocalDate.now().plusDays(30)));
+		
+		assert userRepository.findByUsername("test_user").getFineBalance() == 100;
+		assert bookRepository.findByIsbn("123456").getCurrentStatus().equals("IN");
+	}
 
 	@Test
 	public void testUpdateLoan() {
 		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
       
-		loanRepository.save(new Loan(0L, "test_user1", "123456", LocalDate.now().plusDays(30)));
+		loanRepository.save(new Loan(1L, "test_user", "123456", LocalDate.now().plusDays(30)));
 		
 		//change due date
-		loanService.updateLoan(new UpdateLoanDTO(0L, "test_user1", "123456", LocalDate.now().plusDays(60)));
+		loanService.updateLoan(new UpdateLoanDTO(1L, "test_user", "123456", LocalDate.now().plusDays(60)));
 
-		Loan expectedLoan = new Loan(0L, "test_user1", "123456", LocalDate.now().plusDays(60));
-		Loan retrievedLoan = loanRepository.findByUsername("test_user1").get(0);
+		Loan expectedLoan = new Loan(1L, "test_user", "123456", LocalDate.now().plusDays(60));
+		Loan retrievedLoan = loanRepository.findByUsername("test_user").get(0);
 
-		assert (retrievedLoan.equals(expectedLoan));
+		assert(retrievedLoan.equals(expectedLoan));
 	}
 
 	@Test
