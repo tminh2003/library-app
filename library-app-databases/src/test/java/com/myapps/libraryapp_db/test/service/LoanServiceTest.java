@@ -1,6 +1,6 @@
 package com.myapps.libraryapp_db.test.service;
 
-import static org.mockito.Mockito.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -31,6 +33,7 @@ import com.myapps.libraryapp_db.service.LoanService;
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Import(TestConfiguration.class)
 public class LoanServiceTest {
 
 	@Autowired
@@ -100,7 +103,10 @@ public class LoanServiceTest {
 		userRepository.save(new User("test_user1", "", "", "", 100));
 		
 		//Execute method
-		loanService.createLoan(new CreateLoanDTO("test_user1", "123456", LocalDate.now().plusDays(30)));
+		try {
+			loanService.createLoan(new CreateLoanDTO("test_user1", "123456", LocalDate.now().plusDays(30)));
+		} catch (Exception e) {
+		}
 
 		//Retrieve items to check
 		Loan retrievedLoan = loanRepository.findByUsername("test_user1").get(0);
@@ -117,35 +123,44 @@ public class LoanServiceTest {
 	}
 	
 	@Test
-	public void testCreateLoan_rollbackWhenFail() {
+	public void testCreateLoan_rollbackWhenBookRepositoryFail() {
 		//Preloading
-		bookRepository.save(new Book("123456", "", "", 30, "IN"));
 		userRepository.save(new User("test_user", "", "", "", 100));
 		
 		//Make any book repository call fail
 		BookRepository mockBookRepository = mock(BookRepository.class);
 		doThrow(new RuntimeException()).when(mockBookRepository).save(any(Book.class));
-
+		when(mockBookRepository.findByIsbn("123456")).thenReturn(new Book("123456", "", "", 30, "IN"));
+		
 		LoanService loanService = new LoanService(loanRepository, userRepository, mockBookRepository);
-		loanService.createLoan(new CreateLoanDTO("test_user", "123456", LocalDate.now().plusDays(30)));
+		try {
+			loanService.createLoan(new CreateLoanDTO("test_user", "123456", LocalDate.now().plusDays(30)));
+		} catch (Exception e) {
+		}
 		
 		assert userRepository.findByUsername("test_user").getFineBalance() == 100;
-		assert bookRepository.findByIsbn("123456").getCurrentStatus().equals("IN");
+	}
+	
+	@Test
+	public void testCreateLoan_rollbackWhenUserRepositoryFail() {
+		//Preloading
+		assert(false);
 	}
 
 	@Test
 	public void testUpdateLoan() {
 		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
       
-		loanRepository.save(new Loan(1L, "test_user", "123456", LocalDate.now().plusDays(30)));
+		loanRepository.save(new Loan("test_user", "123456", LocalDate.now().plusDays(30)));
 		
 		//change due date
-		loanService.updateLoan(new UpdateLoanDTO(1L, "test_user", "123456", LocalDate.now().plusDays(60)));
-
-		Loan expectedLoan = new Loan(1L, "test_user", "123456", LocalDate.now().plusDays(60));
+		loanService.updateLoan(new UpdateLoanDTO("test_user", "123456", LocalDate.now().plusDays(60)));
 		Loan retrievedLoan = loanRepository.findByUsername("test_user").get(0);
-
-		assert(retrievedLoan.equals(expectedLoan));
+		
+		boolean everythingIsOk = retrievedLoan.getBookIsbn().equals("123456");
+		everythingIsOk &= retrievedLoan.getUsername().equals("test_user");
+		everythingIsOk &= retrievedLoan.getDueDate().equals(LocalDate.now().plusDays(60));
+		assert(everythingIsOk);
 	}
 
 	@Test

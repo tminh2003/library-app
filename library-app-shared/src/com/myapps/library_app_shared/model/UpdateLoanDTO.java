@@ -8,7 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class UpdateLoanDTO {
-	private Long loanId;
 	private String username;
 	private String isbn;
 	private LocalDate dueDate;

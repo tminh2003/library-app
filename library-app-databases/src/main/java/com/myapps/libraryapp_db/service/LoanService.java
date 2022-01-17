@@ -37,7 +37,7 @@ public class LoanService {
 		return loanRepository.findByUsername(username);
 	}
 
-	public void createLoan(CreateLoanDTO createLoanDTO) {
+	public void createLoan(CreateLoanDTO createLoanDTO) throws Exception{
 		loanRepository.save(new Loan(	createLoanDTO.getUsername(), 
 										createLoanDTO.getIsbn(), 
 										createLoanDTO.getDueDate()));
@@ -46,19 +46,26 @@ public class LoanService {
 
 		book.setCurrentStatus("OUT");
 		user.setFineBalance(user.getFineBalance() - book.getCost());
-		
-		bookRepository.save(book);
+
 		userRepository.save(user);
+		bookRepository.save(book);
 		
 		logger.info("Loan created for " + createLoanDTO.toString());
 	}
 
 	public void updateLoan(UpdateLoanDTO updateLoanDTO) {
-		loanRepository.save(new Loan(	updateLoanDTO.getLoanId(),
-										updateLoanDTO.getUsername(),
-										updateLoanDTO.getIsbn(),
-										updateLoanDTO.getDueDate()));
-		logger.info("Loan updated for " + updateLoanDTO.toString());
+		List<Loan> allLoansOfUser = getAllLoansFor(updateLoanDTO.getUsername());
+		for(Loan loan : allLoansOfUser) {
+			if(loan.getBookIsbn() == updateLoanDTO.getIsbn()) {
+				loanRepository.save(new Loan(	
+						loan.getId(),
+						updateLoanDTO.getUsername(),
+						updateLoanDTO.getIsbn(),
+						updateLoanDTO.getDueDate()));
+				logger.info("Loan updated for " + updateLoanDTO.toString());
+			}
+		}
+		
 	}
 
 	public void deleteLoan(DeleteLoanDTO deleteLoanDTO) {
