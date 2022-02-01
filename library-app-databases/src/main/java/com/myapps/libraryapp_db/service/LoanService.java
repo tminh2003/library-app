@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
@@ -15,6 +16,7 @@ import com.myapps.libraryapp_db.repository.BookRepository;
 import com.myapps.libraryapp_db.repository.LoanRepository;
 import com.myapps.libraryapp_db.repository.UserRepository;
 
+@Transactional
 public class LoanService {
 	private LoanRepository loanRepository;
 	private UserRepository userRepository;
