@@ -123,31 +123,6 @@ public class LoanServiceTest {
 	}
 	
 	@Test
-	public void testCreateLoan_rollbackWhenBookRepositoryFail() {
-		//Preloading
-		userRepository.save(new User("test_user", "", "", "", 100));
-		
-		//Make any book repository call fail
-		BookRepository mockBookRepository = mock(BookRepository.class);
-		doThrow(new RuntimeException()).when(mockBookRepository).save(any(Book.class));
-		when(mockBookRepository.findByIsbn("123456")).thenReturn(new Book("123456", "", "", 30, "IN"));
-		
-		LoanService loanService = new LoanService(loanRepository, userRepository, mockBookRepository);
-		try {
-			loanService.createLoan(new CreateLoanDTO("test_user", "123456", LocalDate.now().plusDays(30)));
-		} catch (Exception e) {
-		}
-		
-		assert userRepository.findByUsername("test_user").getFineBalance() == 100;
-	}
-	
-	@Test
-	public void testCreateLoan_rollbackWhenUserRepositoryFail() {
-		//Preloading
-		assert(false);
-	}
-
-	@Test
 	public void testUpdateLoan() {
 		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
       
