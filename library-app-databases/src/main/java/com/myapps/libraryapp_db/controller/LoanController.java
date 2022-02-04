@@ -32,6 +32,11 @@ public class LoanController {
 		return loanRepository.findAll();
 	}
 	
+	@GetMapping("/loans/{username}")
+	public List<LoanDTO> getAllLoansForUser(@PathVariable String username) {
+		return dtoMapper.toDTO(loanRepository.findByUsername(username));
+	}
+	
 	@PostMapping("/loans")
 	public void createLoan(@RequestBody LoanDTO loan) {
 		loanRepository.save(dtoMapper.toEntity(loan));
@@ -52,8 +57,5 @@ public class LoanController {
 		}
 	}
 
-	@GetMapping("/loans/{username}")
-	public List<LoanDTO> getAllLoansForUser(@PathVariable String username) {
-		return dtoMapper.toDTO(loanRepository.findByUsername(username));
-	}
+	
 }

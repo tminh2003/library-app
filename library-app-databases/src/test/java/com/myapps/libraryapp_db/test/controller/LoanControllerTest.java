@@ -3,6 +3,9 @@ package com.myapps.libraryapp_db.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.test.util.TestUtil;
 
@@ -31,17 +35,18 @@ public class LoanControllerTest {
 	}
 
 	@Test
-	public void testGet() throws Exception {
+	public void testGetAll() throws Exception {
 		String uri = "/loans";
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
 				.get(uri)
 				.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
 
-		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
+		assertEquals(200, mvcResult.getResponse().getStatus());
 		String content = mvcResult.getResponse().getContentAsString();
 		Loan[] allLoans = testUtil.mapFromJson(content, Loan[].class);
 		assertTrue(allLoans.length > 0);
 	}
+	
+
 }

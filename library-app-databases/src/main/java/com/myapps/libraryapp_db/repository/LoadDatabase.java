@@ -53,6 +53,8 @@ class LoadDatabase {
 
 		return args -> {
 			log.info("Preloading " + repository.save(new Loan("jack_frost", "123456", LocalDate.of(2021, 11, 24))));
+			log.info("Preloading " + repository.save(new Loan("test_user1", "123456", LocalDate.now().plusDays(30))));
+			log.info("Preloading " + repository.save(new Loan("test_user1", "123457", LocalDate.now().plusDays(30))));
 		};
 	}
 }
