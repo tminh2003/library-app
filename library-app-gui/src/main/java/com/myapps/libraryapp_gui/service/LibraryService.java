@@ -13,13 +13,12 @@ public class LibraryService {
 
 	public void checkOutBookFor(String username, String isbn, int duration) {
 		loanService.createLoanFor(username, isbn, duration);
-		bookService.setBookStateTo("OUT", isbn);
-		userService.chargeUser(username, bookService.getBookByIsbn(isbn).getCost());
 	}
 
-	public void returnBookFor(String username, String isbn) {
+	public void returnBookFor(String username, String isbn) {/*
 		bookService.setBookStateTo("IN", isbn);
 		loanService.deleteLoanFor(username, isbn);
+		loanService.updateLoanFor(null, username, isbn, 0);*/
 	}
 	
 	public void recheckBookFor(String username, String isbn, int duration) {

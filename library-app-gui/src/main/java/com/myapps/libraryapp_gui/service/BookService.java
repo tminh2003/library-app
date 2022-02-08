@@ -23,14 +23,4 @@ public class BookService{
 		BookDTO bookDTO = restTemplate.getForObject(RESOURCE_LOCATION + "/" + isbn, BookDTO.class);
 		return bookDTO;
 	}
-
-	public void setBookStateTo(String state, String isbn) {
-		RestTemplate restTemplate = new RestTemplate();
-
-		BookDTO bookDTO = getBookByIsbn(isbn);
-		bookDTO.setCurrentStatus(state);
-		
-		restTemplate.put(RESOURCE_LOCATION, bookDTO, BookDTO.class);
-	}
-
 }

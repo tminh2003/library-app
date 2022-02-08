@@ -11,4 +11,6 @@ public class CreateLoanDTO {
 	private String username;
 	private String isbn;
 	private LocalDate dueDate;
+	
+	public CreateLoanDTO() {}
 }

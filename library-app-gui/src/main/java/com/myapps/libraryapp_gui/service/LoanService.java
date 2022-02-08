@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.LoanDTO;
 
 public class LoanService {
@@ -23,7 +24,7 @@ public class LoanService {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		restTemplate.postForObject(RESOURCE_LOCATION,
-				new LoanDTO(username, bookIsbn, LocalDate.now().plusDays(howLong)), LoanDTO.class);
+				new CreateLoanDTO(username, bookIsbn, LocalDate.now().plusDays(howLong)), CreateLoanDTO.class);
 	}
 	
 	public void updateLoanFor(Long id, String username, String bookIsbn, int howLong) {
