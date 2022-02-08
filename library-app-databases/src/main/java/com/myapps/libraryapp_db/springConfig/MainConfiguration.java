@@ -3,6 +3,10 @@ package com.myapps.libraryapp_db.springConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.myapps.libraryapp_db.repository.BookRepository;
+import com.myapps.libraryapp_db.repository.LoanRepository;
+import com.myapps.libraryapp_db.repository.UserRepository;
+import com.myapps.libraryapp_db.service.LoanService;
 import com.myapps.libraryapp_db.util.BookDTOMapper;
 import com.myapps.libraryapp_db.util.LoanDTOMapper;
 import com.myapps.libraryapp_db.util.UserDTOMapper;
@@ -23,5 +27,10 @@ public class MainConfiguration {
 	@Bean
 	public LoanDTOMapper loanDTOMapper() {
 		return new LoanDTOMapper();
+	}
+	
+	@Bean
+	public LoanService loanService(LoanRepository loanRepo, UserRepository userRepo, BookRepository bookRepo) {
+		return new LoanService(loanRepo, userRepo, bookRepo);
 	}
 }

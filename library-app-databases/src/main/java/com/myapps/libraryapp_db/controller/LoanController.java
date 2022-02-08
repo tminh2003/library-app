@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.repository.LoanRepository;
+import com.myapps.libraryapp_db.service.LoanService;
 import com.myapps.libraryapp_db.util.LoanDTOMapper;
 
 @RestController
 public class LoanController {
 	@Autowired
 	private LoanRepository loanRepository;
+	
+	@Autowired
+	private LoanService loanService;
 	
 	@Autowired
 	private LoanDTOMapper dtoMapper;

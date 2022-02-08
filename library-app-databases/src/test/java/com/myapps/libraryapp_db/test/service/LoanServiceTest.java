@@ -1,7 +1,5 @@
 package com.myapps.libraryapp_db.test.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,13 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.myapps.library_app_shared.model.CreateLoanDTO;
 import com.myapps.library_app_shared.model.DeleteLoanDTO;
@@ -30,10 +23,7 @@ import com.myapps.libraryapp_db.repository.LoanRepository;
 import com.myapps.libraryapp_db.repository.UserRepository;
 import com.myapps.libraryapp_db.service.LoanService;
 
-@ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(TestConfiguration.class)
 public class LoanServiceTest {
 
 	@Autowired

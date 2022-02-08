@@ -3,9 +3,6 @@ package com.myapps.libraryapp_db.test.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.myapps.library_app_shared.model.LoanDTO;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.test.util.TestUtil;
 
