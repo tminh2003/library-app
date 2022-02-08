@@ -38,7 +38,7 @@ public class LoanService {
 		return loanRepository.findByUsername(username);
 	}
 
-	public void createLoan(CreateLoanDTO createLoanDTO) throws Exception{
+	public void createLoan(CreateLoanDTO createLoanDTO){
 		loanRepository.save(new Loan(	createLoanDTO.getUsername(), 
 										createLoanDTO.getIsbn(), 
 										createLoanDTO.getDueDate()));
