@@ -1,33 +1,26 @@
 package com.myapps.libraryapp_gui.service;
 
-import com.myapps.library_app_shared.model.LoanDTO;
+import java.time.LocalDate;
+
+import org.springframework.web.client.RestTemplate;
+
+import com.myapps.library_app_shared.model.CheckOutBookDTO;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class LibraryService {
+	private String RESOURCE_LOCATION;
 	
-	private UserService userService;
-	private BookService bookService;
-	private LoanService loanService;
-
 	public void checkOutBookFor(String username, String isbn, int duration) {
-		loanService.createLoanFor(username, isbn, duration);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.postForObject(	
+				RESOURCE_LOCATION, 
+				new CheckOutBookDTO(username, isbn, LocalDate.now().plusDays(duration)), 
+				CheckOutBookDTO.class);
 	}
 
-	public void returnBookFor(String username, String isbn) {/*
-		bookService.setBookStateTo("IN", isbn);
-		loanService.deleteLoanFor(username, isbn);
-		loanService.updateLoanFor(null, username, isbn, 0);*/
-	}
+	public void returnBookFor(String username, String isbn) {}
 	
-	public void recheckBookFor(String username, String isbn, int duration) {
-		LoanDTO[] allLoans = loanService.getAllLoansFor(username);
-		for(LoanDTO loanDTO : allLoans) {
-			if(loanDTO.getBookIsbn().equals(isbn)) {
-				loanService.updateLoanFor(loanDTO.getId(), username, isbn, duration);
-			}
-		}
-		userService.chargeUser(username, bookService.getBookByIsbn(isbn).getCost());
-	}
+	public void recheckBookFor(String username, String isbn, int duration) {}
 }

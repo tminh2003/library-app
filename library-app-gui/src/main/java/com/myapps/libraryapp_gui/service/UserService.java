@@ -45,11 +45,4 @@ public class UserService{
 			restTemplate.postForObject(RESOURCE_LOCATION, user, UserDTO.class);
 		}
 	}
-	
-	public void chargeUser(String username, double moneyAmount) {
-		UserDTO userDTO = getUserByUsername(username);
-		userDTO.setFineBalance(userDTO.getFineBalance() - moneyAmount);
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.put(RESOURCE_LOCATION, userDTO, UserDTO.class);
-	}
 }
