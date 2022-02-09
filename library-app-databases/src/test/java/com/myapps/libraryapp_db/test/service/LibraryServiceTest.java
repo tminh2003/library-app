@@ -12,19 +12,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.myapps.library_app_shared.model.CreateLoanDTO;
-import com.myapps.library_app_shared.model.DeleteLoanDTO;
-import com.myapps.library_app_shared.model.UpdateLoanDTO;
+import com.myapps.library_app_shared.model.CheckOutBookDTO;
+import com.myapps.library_app_shared.model.RecheckBookDTO;
+import com.myapps.library_app_shared.model.ReturnBookDTO;
 import com.myapps.libraryapp_db.model.Book;
 import com.myapps.libraryapp_db.model.Loan;
 import com.myapps.libraryapp_db.model.User;
 import com.myapps.libraryapp_db.repository.BookRepository;
 import com.myapps.libraryapp_db.repository.LoanRepository;
 import com.myapps.libraryapp_db.repository.UserRepository;
-import com.myapps.libraryapp_db.service.LoanService;
+import com.myapps.libraryapp_db.service.LibraryService;
 
 @SpringBootTest
-public class LoanServiceTest {
+public class LibraryServiceTest {
 
 	@Autowired
 	private LoanRepository loanRepository;
@@ -38,6 +38,8 @@ public class LoanServiceTest {
 	@BeforeEach
 	public void clearLoanRepository() {
 		loanRepository.deleteAll();
+		userRepository.deleteAll();
+		bookRepository.deleteAll();
 	}
 
 	@Test
@@ -48,8 +50,8 @@ public class LoanServiceTest {
 
 		when(loanRepository.findAll()).thenReturn(expectedList);
 
-		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
-		List<Loan> retrievedList = loanService.getAllLoans();
+		LibraryService libraryService = new LibraryService(loanRepository, userRepository, bookRepository);
+		List<Loan> retrievedList = libraryService.getAllLoans();
 
 		assert (retrievedList.equals(expectedList));
 	}
@@ -75,34 +77,31 @@ public class LoanServiceTest {
 		when(loanRepository.findByUsername("test_user2")).thenReturn(user2Loans);
 
 		boolean retrievedLoansOfCorrectUser;
-		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
-		List<Loan> retrievedList = loanService.getAllLoansFor("test_user1");
+		LibraryService libraryService = new LibraryService(loanRepository, userRepository, bookRepository);
+		List<Loan> retrievedList = libraryService.getAllLoansFor("test_user1");
 		retrievedLoansOfCorrectUser = retrievedList.equals(user1Loans);
 
-		retrievedList = loanService.getAllLoansFor("test_user2");
+		retrievedList = libraryService.getAllLoansFor("test_user2");
 		retrievedLoansOfCorrectUser &= retrievedList.equals(user2Loans);
 		assert (retrievedLoansOfCorrectUser);
 	}
 
 	@Test
-	public void testCreateLoan_setBookToOutAndChargeUser() {
-		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
-		
-		//Preloading items to database
+	public void testCheckOutBook_setBookToOutAndChargeUser() {
+		LibraryService libraryService = new LibraryService(loanRepository, userRepository, bookRepository);
+
+		// Preloading items to database
 		bookRepository.save(new Book("123456", "", "", 30, "IN"));
 		userRepository.save(new User("test_user1", "", "", "", 100));
-		
-		//Execute method
-		try {
-			loanService.createLoan(new CreateLoanDTO("test_user1", "123456", LocalDate.now().plusDays(30)));
-		} catch (Exception e) {
-		}
 
-		//Retrieve items to check
+		// Execute method
+		libraryService.checkOutFor(new CheckOutBookDTO("test_user1", "123456", LocalDate.now().plusDays(30)));
+
+		// Retrieve items to check
 		Loan retrievedLoan = loanRepository.findByUsername("test_user1").get(0);
 		User retrievedUser = userRepository.findByUsername("test_user1");
 		Book retrievedBook = bookRepository.findByIsbn("123456");
-		
+
 		boolean everythingIsOk = retrievedLoan.getUsername().equals("test_user1");
 		everythingIsOk &= retrievedLoan.getBookIsbn().equals("123456");
 		everythingIsOk &= retrievedLoan.getDueDate().equals(LocalDate.now().plusDays(30));
@@ -111,32 +110,37 @@ public class LoanServiceTest {
 
 		assert (everythingIsOk);
 	}
-	
+
 	@Test
-	public void testUpdateLoan() {
-		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
-      
+	public void testRecheckBook() {
+		LibraryService libraryService = new LibraryService(loanRepository, userRepository, bookRepository);
+
 		loanRepository.save(new Loan("test_user", "123456", LocalDate.now().plusDays(30)));
-		
-		//change due date
-		loanService.updateLoan(new UpdateLoanDTO("test_user", "123456", LocalDate.now().plusDays(60)));
+
+		// change due date
+		libraryService.recheckFor(new RecheckBookDTO("test_user", "123456", LocalDate.now().plusDays(60)));
 		Loan retrievedLoan = loanRepository.findByUsername("test_user").get(0);
-		
+
 		boolean everythingIsOk = retrievedLoan.getBookIsbn().equals("123456");
 		everythingIsOk &= retrievedLoan.getUsername().equals("test_user");
 		everythingIsOk &= retrievedLoan.getDueDate().equals(LocalDate.now().plusDays(60));
-		assert(everythingIsOk);
+		assert (everythingIsOk);
 	}
 
 	@Test
-	public void testDeleteLoan() {
-		LoanService loanService = new LoanService(loanRepository, userRepository, bookRepository);
+	public void testReturnBook() {
+		LibraryService libraryService = new LibraryService(loanRepository, userRepository, bookRepository);
 
 		loanRepository.save(new Loan("test_user", "123456", LocalDate.now()));
-		loanService.deleteLoan(new DeleteLoanDTO("test_user", "123456"));
-
+		bookRepository.save(new Book("123456", "test_book", "author", 15.00, "OUT"));
+		
+		libraryService.returnFor(new ReturnBookDTO("test_user", "123456"));
+		
 		List<Loan> allLoans = loanRepository.findAll();
+		List<Book> allBooks = bookRepository.findAll();
 
-		assert (allLoans.size() == 0);
+		boolean everythingIsOk = allLoans.size() == 0;
+		everythingIsOk &= allBooks.get(0).getCurrentStatus().equals("IN");
+		assert (everythingIsOk);
 	}
 }

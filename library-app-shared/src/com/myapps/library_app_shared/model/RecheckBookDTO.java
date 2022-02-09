@@ -7,7 +7,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class UpdateLoanDTO {
+public class RecheckBookDTO {
 	private String username;
 	private String isbn;
 	private LocalDate dueDate;

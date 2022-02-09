@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class DeleteLoanDTO {
+public class ReturnBookDTO {
 	private String username;
 	private String isbn;
 }

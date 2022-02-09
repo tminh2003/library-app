@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myapps.library_app_shared.model.CreateLoanDTO;
-import com.myapps.library_app_shared.model.DeleteLoanDTO;
+import com.myapps.library_app_shared.model.CheckOutBookDTO;
+import com.myapps.library_app_shared.model.ReturnBookDTO;
 import com.myapps.library_app_shared.model.LoanDTO;
-import com.myapps.library_app_shared.model.UpdateLoanDTO;
-import com.myapps.libraryapp_db.service.LoanService;
+import com.myapps.library_app_shared.model.RecheckBookDTO;
+import com.myapps.libraryapp_db.service.LibraryService;
 import com.myapps.libraryapp_db.util.LoanDTOMapper;
 
 @RestController
-public class LoanController {
+public class LibraryController {
 	@Autowired
-	private LoanService loanService;
+	private LibraryService loanService;
 	
 	@Autowired
 	private LoanDTOMapper dtoMapper;
@@ -39,18 +39,18 @@ public class LoanController {
 	}
 	
 	@PostMapping("/loans")
-	public void createLoan(@RequestBody CreateLoanDTO createLoanDTO) {
-		loanService.createLoan(createLoanDTO);
+	public void checkOut(@RequestBody CheckOutBookDTO checkOutBookDTO) {
+		loanService.checkOutFor(checkOutBookDTO);
 	}
 	
 	@PutMapping("/loans")
-	public void updateLoan(@RequestBody UpdateLoanDTO updateLoanDTO) {
-		loanService.updateLoan(updateLoanDTO);
+	public void recheckFor(@RequestBody RecheckBookDTO recheckBookDTO) {
+		loanService.recheckFor(recheckBookDTO);
 	}
 	
 	@DeleteMapping("/loans")
-	public void deleteLoanFor(@RequestBody DeleteLoanDTO deleteLoanDTO) {
-		loanService.deleteLoan(deleteLoanDTO);
+	public void returnFor(@RequestBody ReturnBookDTO returnBookDTO) {
+		loanService.returnFor(returnBookDTO);
 	}
 
 	

@@ -7,10 +7,10 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class CreateLoanDTO {
+public class CheckOutBookDTO {
 	private String username;
 	private String isbn;
 	private LocalDate dueDate;
 	
-	public CreateLoanDTO() {}
+	public CheckOutBookDTO() {}
 }
