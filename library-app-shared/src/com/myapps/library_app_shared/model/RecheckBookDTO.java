@@ -11,4 +11,6 @@ public class RecheckBookDTO {
 	private String username;
 	private String isbn;
 	private LocalDate dueDate;
+	
+	public RecheckBookDTO() {}
 }

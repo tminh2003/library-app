@@ -8,4 +8,6 @@ import lombok.Data;
 public class ReturnBookDTO {
 	private String username;
 	private String isbn;
+	
+	public ReturnBookDTO() {}
 }
